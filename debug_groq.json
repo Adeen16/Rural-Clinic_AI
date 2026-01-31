@@ -1,0 +1,36 @@
+{
+  "patient_input_summary": "The patient reports crushing chest pain for 30 minutes.",
+  "extracted_timestamp": "2024-01-01T00:00:00Z",
+  "patient_demographics": {
+    "age_value": null,
+    "age_unit": null
+  },
+  "body_systems": {
+    "general": [],
+    "respiratory": [],
+    "cardiovascular": [
+      {
+        "name": "chest_pain",
+        "value": null,
+        "severity_scale": 9,
+        "duration_value": 30,
+        "duration_unit": "minutes",
+        "body_system": "cardiovascular",
+        "certainty": "certain",
+        "negated": false,
+        "onset_timestamp": null,
+        "resolution_timestamp": null,
+        "notes": null
+      }
+    ],
+    "gastrointestinal": [],
+    "neurological": [],
+    "genitourinary": [],
+    "musculoskeletal": [],
+    "mental_health": []
+  },
+  "flags": {
+    "uncertainty_detected": false,
+    "missing_critical_info": []
+  }
+}

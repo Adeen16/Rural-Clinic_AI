@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # --- Backend Service ---
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rural-clinic-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    networks:
+      - rural-network
+
+  # --- Frontend Service ---
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rural-clinic-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # In Docker, frontend talks to backend service name internally? 
+      # Actually Next.js runs client-side mostly, so browser needs localhost 
+      # BUT 'ingest' calls happen from backend? No, frontend calls backend.
+      # If SSR, it needs http://backend:8000. If Client, it needs localhost:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - rural-network
+
+  # --- Cache Service ---
+  redis:
+    image: "redis:alpine"
+    container_name: rural-clinic-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rural-network
+
+networks:
+  rural-network:
+    driver: bridge
