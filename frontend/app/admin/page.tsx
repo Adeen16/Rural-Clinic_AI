@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   BarChart3,
@@ -34,7 +34,7 @@ export default function AdminPage() {
   const [timeRange, setTimeRange] = useState<"today" | "week" | "month">("today");
 
   // Mock statistics
-  const stats = {
+  const initialStats = {
     today: {
       totalConsultations: 24,
       avgTriageTime: "45ms",
@@ -55,7 +55,28 @@ export default function AdminPage() {
     },
   };
 
-  const currentStats = stats[timeRange];
+  const [dashboardStats, setDashboardStats] = useState(initialStats);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+
+  // Simulate real-time updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDashboardStats(prev => {
+        const newStats = { ...prev };
+        // Increment today's stats randomly
+        if (Math.random() > 0.7) {
+          newStats.today.totalConsultations += 1;
+          newStats.today.rulesTriggered += Math.floor(Math.random() * 5);
+          if (Math.random() > 0.9) newStats.today.highPriority += 1;
+        }
+        return newStats;
+      });
+      setLastUpdate(new Date());
+    }, 3000);
+    return () => clearInterval(interval);
+  }); // Note: Client component, strict mode might double invoke, but okay for visual effect
+
+  const currentStats = dashboardStats[timeRange];
 
   // Mock recent consultations
   const recentConsultations = [

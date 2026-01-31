@@ -29,6 +29,14 @@ export default function IntakePage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Demographics State
+  const [patientName, setPatientName] = useState("");
+  const [age, setAge] = useState("");
+  const [sex, setSex] = useState("male");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [language, setLanguage] = useState("en-US");
+
   const {
     isListening,
     transcript,
@@ -39,6 +47,7 @@ export default function IntakePage() {
   } = useVoice({
     onResult: (text) => setInputText(text),
     onError: () => setError("Voice input failed. Please try again or type instead."),
+    lang: language,
   });
 
   // Handle voice button interaction
@@ -76,6 +85,14 @@ export default function IntakePage() {
         rawText: inputText,
         symptoms: extractMockSymptoms(inputText),
         timestamp: new Date().toISOString(),
+
+        demographics: {
+          name: patientName,
+          age: age,
+          sex: sex,
+          phone: phone,
+          location: location
+        }
       };
       sessionStorage.setItem(consultId, JSON.stringify(mockResult));
 
@@ -99,6 +116,31 @@ export default function IntakePage() {
       { term: "nausea", normalized: "Nausea", category: "gastrointestinal" },
       { term: "tired", normalized: "Fatigue", category: "systemic" },
       { term: "breath", normalized: "Shortness of breath", category: "respiratory" },
+      { term: "fracture", normalized: "Suspected Fracture", category: "musculoskeletal" },
+      { term: "broken", normalized: "Suspected Fracture", category: "musculoskeletal" },
+      { term: "bone", normalized: "Bone Trauma", category: "musculoskeletal" },
+      { term: "trauma", normalized: "Major Trauma", category: "general" },
+      // Hindi Support
+      { term: "dard", normalized: "Pain", category: "general" },
+      { term: "dukha", normalized: "Pain", category: "general" },
+      { term: "bukhar", normalized: "Elevated temperature", category: "systemic" },
+      { term: "toot", normalized: "Suspected Fracture", category: "musculoskeletal" },
+      { term: "haddi", normalized: "Bone Trauma", category: "musculoskeletal" },
+      { term: "saans", normalized: "Shortness of breath", category: "respiratory" },
+      { term: "chakkar", normalized: "Dizziness", category: "neurological" },
+      { term: "sar", normalized: "Headache", category: "neurological" },
+      { term: "matha", normalized: "Headache", category: "neurological" },
+      { term: "pet", normalized: "Abdominal Pain", category: "gastrointestinal" },
+      { term: "chaati", normalized: "Chest Pain", category: "cardiovascular" },
+      { term: "दर्द", normalized: "Pain", category: "general" },
+      { term: "फ्रैक्चर", normalized: "Suspected Fracture", category: "musculoskeletal" },
+      { term: "बुखार", normalized: "Elevated temperature", category: "systemic" },
+      { term: "टूटा", normalized: "Suspected Fracture", category: "musculoskeletal" },
+      { term: "सांस", normalized: "Shortness of breath", category: "respiratory" },
+      { term: "चक्कर", normalized: "Dizziness", category: "neurological" },
+      { term: "सर", normalized: "Headache", category: "neurological" },
+      { term: "छाती", normalized: "Chest Pain", category: "cardiovascular" },
+      { term: "पेट", normalized: "Abdominal Pain", category: "gastrointestinal" },
     ];
 
     return keywords
@@ -113,7 +155,7 @@ export default function IntakePage() {
       }));
   };
 
-  const hasInput = inputText.trim().length > 0;
+  const hasInput = inputText.trim().length > 0 && age.length > 0 && location.length > 0;
   const currentState = isProcessing
     ? "processing"
     : isListening
@@ -124,21 +166,34 @@ export default function IntakePage() {
     <DashboardLayout>
       <div className="min-h-screen p-4 md:p-8 max-w-4xl mx-auto">
         {/* Header */}
-        <header className="flex items-center gap-4 mb-8">
-          <Link href="/">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <ArrowLeft className="w-5 h-5" />
-              <span className="sr-only">Back to home</span>
-            </Button>
-          </Link>
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
-              Patient Intake
-            </h1>
-            <p className="text-text-secondary text-sm md:text-base">
-              Describe symptoms using voice or text
-            </p>
+        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div className="flex items-center gap-4">
+            <Link href="/">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <ArrowLeft className="w-5 h-5" />
+                <span className="sr-only">Back to home</span>
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-white">
+                Patient Intake
+              </h1>
+              <p className="text-text-secondary text-sm md:text-base">
+                Describe symptoms using voice or text
+              </p>
+            </div>
           </div>
+
+          {/* Language Selector */}
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="p-2 bg-background border border-border rounded-lg text-white text-sm focus:ring-2 focus:ring-primary/20"
+          >
+            <option value="en-US">English (US)</option>
+            <option value="hi-IN">Hindi (हिन्दी)</option>
+            <option value="te-IN">Telugu (తెలుగు)</option>
+          </select>
         </header>
 
         {/* Error Alert */}
@@ -156,6 +211,67 @@ export default function IntakePage() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Patient Demographics */}
+        <Card className="p-6 md:p-8 space-y-6 mb-8">
+          <h2 className="text-xl font-bold text-white">Patient Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-text-secondary">Full Name (Optional)</label>
+              <input
+                type="text"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+                placeholder="John Doe"
+                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-text-secondary">Phone Number</label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+91 98765 43210"
+                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-text-secondary">Age *</label>
+                <input
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  placeholder="45"
+                  className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-text-secondary">Sex *</label>
+                <select
+                  value={sex}
+                  onChange={(e) => setSex(e.target.value)}
+                  className="w-full p-3 bg-background border border-border rounded-lg text-white focus:ring-2 focus:ring-primary/20"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-text-secondary">Location *</label>
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Village / Area"
+                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+        </Card>
 
         {/* Main Input Area */}
         <Card className="p-6 md:p-8 space-y-8">

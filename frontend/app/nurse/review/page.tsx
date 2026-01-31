@@ -121,7 +121,7 @@ export default function ReviewQueuePage() {
         </div>
 
         {/* Queue List */}
-        <div className="space-y-3">
+        <div className="space-y-8">
           {filteredQueue.length === 0 ? (
             <Card className="p-12 text-center">
               <ClipboardList className="w-12 h-12 text-text-muted mx-auto mb-4" />
@@ -136,7 +136,7 @@ export default function ReviewQueuePage() {
                 <Link key={item.id} href={`/nurse/review/${item.id}`}>
                   <Card
                     className={cn(
-                      "p-4 hover:border-primary/30 transition-colors cursor-pointer",
+                      "p-8 hover:border-primary/30 transition-colors cursor-pointer",
                       item.priority === "high" && "border-triage-red/30"
                     )}
                   >

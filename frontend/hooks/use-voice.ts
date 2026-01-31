@@ -6,9 +6,10 @@ export interface UseVoiceProps {
     onResult?: (transcript: string) => void;
     onEnd?: () => void;
     onError?: (error: any) => void;
+    lang?: string;
 }
 
-export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
+export function useVoice({ onResult, onEnd, onError, lang = "en-US" }: UseVoiceProps = {}) {
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState("");
     const [volume, setVolume] = useState(0); // Mock volume for visualizer
@@ -26,7 +27,7 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
             const recognition = new SpeechRecognition();
             recognition.continuous = true;
             recognition.interimResults = true;
-            recognition.lang = "en-US"; // Default to US English
+            recognition.lang = lang;
 
             recognition.onstart = () => {
                 setIsListening(true);
@@ -63,6 +64,16 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
                     stopVolumeSimulation();
                     return;
                 }
+
+                // transform network error to warning
+                if (event.error === 'network') {
+                    console.warn("Speech Recognition: Network error (check internet connection)");
+                    if (onError) onError("Network error");
+                    setIsListening(false);
+                    stopVolumeSimulation();
+                    return;
+                }
+
                 console.error("Speech Recognition Error", event.error);
                 if (onError) onError(event.error);
                 setIsListening(false);
@@ -80,7 +91,7 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
             }
             stopVolumeSimulation();
         };
-    }, [onResult, onEnd, onError]);
+    }, [onResult, onEnd, onError, lang]);
 
     const startVolumeSimulation = () => {
         if (volumeIntervalRef.current) clearInterval(volumeIntervalRef.current);
@@ -132,6 +143,15 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
         stopVolumeSimulation();
     }, []);
 
+    const [isSupported, setIsSupported] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const isBrowserSupported = !!(window as any).SpeechRecognition || !!(window as any).webkitSpeechRecognition;
+            setIsSupported(isBrowserSupported);
+        }
+    }, []);
+
     return {
         isListening,
         transcript,
@@ -139,6 +159,6 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
         stopListening,
         reset,
         volume,
-        isSupported: typeof window !== "undefined" && (!!(window as any).SpeechRecognition || !!(window as any).webkitSpeechRecognition)
+        isSupported
     };
 }

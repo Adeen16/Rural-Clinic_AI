@@ -140,10 +140,16 @@ export default function TriageResultPage() {
             s.category?.toLowerCase().includes("neuro") ||
             s.normalized?.toLowerCase().includes("headache")
         );
+        const hasFracture = symptoms.some(
+          (s: any) =>
+            s.normalized?.toLowerCase().includes("fracture") ||
+            s.normalized?.toLowerCase().includes("trauma") ||
+            s.normalized?.toLowerCase().includes("bone")
+        );
 
         // Mock triage level determination
         let level: TriageLevel = 5;
-        if (hasCardiac) level = 2;
+        if (hasCardiac || hasFracture) level = 2;
         else if (hasNeuro && symptoms.length > 2) level = 3;
         else if (symptoms.length > 1) level = 4;
 
@@ -153,9 +159,11 @@ export default function TriageResultPage() {
           verifiedSymptoms: symptoms,
           rulesTriggered: hasCardiac
             ? ["CARDIAC_SYMPTOM_PRESENT", "IMMEDIATE_ATTENTION"]
-            : hasNeuro
-            ? ["NEUROLOGICAL_CLUSTER", "MONITORING_REQUIRED"]
-            : ["STANDARD_ASSESSMENT"],
+            : hasFracture
+              ? ["POSSIBLE_FRACTURE", "IMMOBILIZE_PATIENT"]
+              : hasNeuro
+                ? ["NEUROLOGICAL_CLUSTER", "MONITORING_REQUIRED"]
+                : ["STANDARD_ASSESSMENT"],
           timestamp: new Date().toISOString(),
         });
       } else {
@@ -219,9 +227,62 @@ export default function TriageResultPage() {
   const config = TRIAGE_LEVELS[result.triageLevel];
   const Icon = config.icon;
 
+
+  // Specialist Mapping Configuration
+  const SPECIALISTS = {
+    cardio: {
+      name: "Dr. Sarah Khan",
+      title: "Cardiologist",
+      hospital: "Memorial Hospital",
+      distance: "5km",
+    },
+    neuro: {
+      name: "Dr. Anjali Gupta",
+      title: "Neurologist",
+      hospital: "City Neuro Center",
+      distance: "8km",
+    },
+    trauma: {
+      name: "Dr. James Wilson",
+      title: "Orthopedic Surgeon",
+      hospital: "City Trauma Center",
+      distance: "15km",
+    },
+    respiratory: {
+      name: "Dr. Emily Chen",
+      title: "Pulmonologist",
+      hospital: "District Hospital",
+      distance: "12km",
+    },
+    general: {
+      name: "Dr. Amit Patel",
+      title: "General Physician",
+      hospital: "Rural Health Center",
+      distance: "2km",
+    },
+  };
+
+  // Determine recommended specialist based on symptoms
+  const getRecommendedSpecialist = () => {
+    if (!result) return null;
+
+    // Check for high priority matches first
+    if (result.rulesTriggered.some(r => r.includes("CARDIAC"))) return SPECIALISTS.cardio;
+    if (result.verifiedSymptoms.some(s => s.normalized.toLowerCase().includes("fracture") || s.normalized.toLowerCase().includes("bone"))) return SPECIALISTS.trauma;
+    if (result.rulesTriggered.some(r => r.includes("NEURO"))) return SPECIALISTS.neuro;
+    if (result.verifiedSymptoms.some(s => s.category.toLowerCase().includes("respiratory"))) return SPECIALISTS.respiratory;
+
+    // Default fallback
+    return SPECIALISTS.general;
+  };
+
+  const specialist = getRecommendedSpecialist();
+
   return (
     <DashboardLayout>
       <div className="min-h-screen p-4 md:p-8 max-w-4xl mx-auto">
+        {/* ... (Header and Main Triage Card remain the same) ... */}
+
         {/* Header */}
         <header className="flex items-center gap-4 mb-6">
           <Link href="/nurse/review">
@@ -374,7 +435,7 @@ export default function TriageResultPage() {
           </Card>
 
           {/* Specialist Referral (if needed) */}
-          {result.triageLevel <= 3 && (
+          {result.triageLevel <= 3 && specialist && (
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -385,14 +446,15 @@ export default function TriageResultPage() {
               <CardContent className="space-y-4">
                 <div className="p-3 rounded-xl bg-surface-hover border border-border">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-sm">
-                      Dr
+                    <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center font-bold text-sm text-white">
+                      {specialist.name.split(" ")[1][0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-white">Dr. Sarah Khan</p>
-                      <p className="text-xs text-text-muted flex items-center">
+                      <p className="font-medium text-white">{specialist.name}</p>
+                      <p className="text-sm text-primary">{specialist.title}</p>
+                      <p className="text-xs text-text-muted flex items-center mt-1">
                         <MapPin className="w-3 h-3 mr-1" />
-                        Memorial Hospital - 5km
+                        {specialist.hospital} - {specialist.distance}
                       </p>
                     </div>
                   </div>

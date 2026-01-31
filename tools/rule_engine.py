@@ -43,6 +43,15 @@ def evaluate_triage(payload: dict) -> dict:
                 "rationale": "Sudden onset shortness of breath detected."
             }
 
+        # Rule 3: Fracture / Major Trauma
+        if "fracture" in name or "bone" in name or "deformity" in name:
+            # We treat mentioned fractures as critical in rural settings due to lack of imaging
+            return {
+                "priority": "RED",
+                "action": "CRITICAL: Possible Fracture/Trauma. Immobilize & Transfer.",
+                "rationale": f"Detected potential fracture symptom: {name}"
+            }
+
     # --- AMBER FLAG RULES (URGENT) ---
     
     for s in all_symptoms:
