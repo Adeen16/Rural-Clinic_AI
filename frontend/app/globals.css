@@ -1,38 +1,61 @@
 @import "tailwindcss";
 
-/* ===== DESIGN SYSTEM v2 ===== */
+/* ===== GLAIDO DESIGN SYSTEM ===== */
 :root {
-  /* Core Colors */
-  --background: #09090b;
-  --surface: #18181b;
-  --surface-hover: #27272a;
-  --border: #27272a;
+  /* Backgrounds */
+  --background: #0a0a0a;
+  /* Deepest Black */
+  --surface: #121212;
+  /* Card Surface */
+  --surface-hover: #1e1e1e;
+  --border: #2a2a2a;
   --border-light: #3f3f46;
 
-  /* Text */
-  --text-primary: #fafafa;
+  /* Typography */
+  --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
+  /* Zinc 400 */
   --text-muted: #71717a;
+  /* Zinc 500 */
 
-  /* Accent */
-  --accent: #10b981;
-  --accent-hover: #059669;
-  --accent-glow: rgba(16, 185, 129, 0.15);
+  /* Brand Colors */
+  --primary: #3b82f6;
+  /* Electric Blue */
+  --primary-hover: #2563eb;
+  --primary-glow: rgba(59, 130, 246, 0.15);
 
-  /* Triage */
+  /* Functional Colors */
+  --recording: #ef4444;
+  /* Vibrant Red */
+  --recording-glow: rgba(239, 68, 68, 0.2);
+  --success: #10b981;
+  /* Emerald */
+  --success-glow: rgba(16, 185, 129, 0.15);
+
+  /* Triage States */
   --triage-red: #ef4444;
-  --triage-red-bg: rgba(239, 68, 68, 0.12);
+  --triage-red-bg: rgba(239, 68, 68, 0.1);
   --triage-amber: #f59e0b;
-  --triage-amber-bg: rgba(245, 158, 11, 0.12);
-  --triage-green: #22c55e;
-  --triage-green-bg: rgba(34, 197, 94, 0.12);
+  --triage-amber-bg: rgba(245, 158, 11, 0.1);
+  --triage-green: #10b981;
+  --triage-green-bg: rgba(16, 185, 129, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
-  --color-accent: var(--accent);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-recording: var(--recording);
+  --color-success: var(--success);
+
   --color-triage-red: var(--triage-red);
   --color-triage-amber: var(--triage-amber);
   --color-triage-green: var(--triage-green);

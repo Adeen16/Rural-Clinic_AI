@@ -1,109 +1,100 @@
-"use client";
-
-import { useState } from "react";
-import { Activity } from "lucide-react";
-import IntakeForm from "@/components/IntakeForm";
-import TriageCard from "@/components/TriageCard";
-
-interface TriageResult {
-  priority: "RED" | "AMBER" | "GREEN";
-  action: string;
-  rationale: string;
-}
+import Link from "next/link";
+import { ArrowRight, Activity, Users, FileText } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
 export default function Home() {
-  const [step, setStep] = useState<"INTAKE" | "RESULT">("INTAKE");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<TriageResult | null>(null);
-
-  const handleAnalyze = async (text: string) => {
-    setLoading(true);
-    try {
-      // 1. Ingest: Text → Structured Symptoms
-      const ingestRes = await fetch("http://localhost:8000/ingest", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
-
-      if (!ingestRes.ok) throw new Error("Processing failed");
-      const symptoms = await ingestRes.json();
-
-      // 2. Triage: Symptoms → Recommendation
-      const triageRes = await fetch("http://localhost:8000/triage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload: symptoms }),
-      });
-
-      if (!triageRes.ok) throw new Error("Triage failed");
-      const triageData = await triageRes.json();
-
-      setResult(triageData);
-      setStep("RESULT");
-    } catch (error) {
-      console.error(error);
-      alert("Unable to connect. Please ensure the system is running.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleReset = () => {
-    setResult(null);
-    setStep("INTAKE");
-  };
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <main className="min-h-screen p-6 md:p-12 max-w-7xl mx-auto flex flex-col gap-12">
       {/* Header */}
-      <header className="py-4 px-6 border-b border-[var(--border)]">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[var(--accent)] flex items-center justify-center">
-              <Activity className="w-5 h-5 text-black" />
-            </div>
-            <span className="font-semibold text-lg">RuralClinic AI</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="status-dot" />
-            <span className="text-sm text-[var(--text-muted)]">Online</span>
-          </div>
-        </div>
+      <header className="flex flex-col gap-4 animate-fade-up">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+          RuralClinic AI
+        </h1>
+        <p className="text-xl text-text-secondary max-w-2xl">
+          Clinical decision support at the speed of voice.
+          Designed for rapid triage in low-resource environments.
+        </p>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full">
-          {step === "INTAKE" && (
-            <div className="space-y-8 text-center">
-              {/* Hero */}
-              <div className="space-y-3 max-w-md mx-auto">
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  Tell us how you feel
-                </h1>
-                <p className="text-[var(--text-secondary)] text-lg">
-                  We&apos;ll help prioritize your care
-                </p>
-              </div>
+      {/* Main Action Area */}
+      <section className="grid md:grid-cols-2 gap-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
 
-              {/* Form */}
-              <IntakeForm onAnalyze={handleAnalyze} isProcessing={loading} />
-            </div>
-          )}
+        {/* Primary Action: New Consult */}
+        <Link href="/intake" className="col-span-full md:col-span-1">
+          <Card className="h-full border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors group cursor-pointer relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-3xl">
+                <Activity className="w-8 h-8 text-primary" />
+                Start Triage
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-lg text-text-secondary">
+                Begin a new patient consultation using voice or text. Instant assessment.
+              </p>
+              <Button className="w-full md:w-auto" variant="default">
+                Start Consultation <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </CardContent>
+          </Card>
+        </Link>
 
-          {step === "RESULT" && result && (
-            <TriageCard result={result} onReset={handleReset} />
-          )}
+        {/* Action: Specialist Network */}
+        <Link href="/network" className="col-span-1">
+          <Card className="h-full hover:border-border-light transition-colors group cursor-pointer">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Users className="w-6 h-6 text-triage-green" />
+                Specialist Network
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-text-secondary mb-6">
+                Connect patients with available specialists nearby.
+              </p>
+              <span className="text-sm font-medium text-primary group-hover:underline underline-offset-4 flex items-center">
+                Find a Doctor <ArrowRight className="ml-1 w-3 h-3" />
+              </span>
+            </CardContent>
+          </Card>
+        </Link>
+      </section>
+
+      {/* Recent Activity / Stats (Mock) */}
+      <section className="animate-fade-up" style={{ animationDelay: "0.2s" }}>
+        <h2 className="text-2xl font-bold mb-6">Daily Overview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="bg-surface/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-text-muted">Total Consults</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">24</div>
+              <p className="text-xs text-text-secondary">+12% from yesterday</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-surface/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-text-muted">High Priority</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-triage-red">3</div>
+              <p className="text-xs text-text-secondary">Requires follow-up</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-surface/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-text-muted">Referrals Sent</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-triage-green">8</div>
+              <p className="text-xs text-text-secondary">To network specialists</p>
+            </CardContent>
+          </Card>
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-4 px-6 border-t border-[var(--border)]">
-        <p className="text-center text-xs text-[var(--text-muted)]">
-          Powered by Groq LPU • Deterministic Rule Engine
-        </p>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }
