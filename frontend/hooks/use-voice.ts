@@ -56,6 +56,13 @@ export function useVoice({ onResult, onEnd, onError }: UseVoiceProps = {}) {
             };
 
             recognition.onerror = (event: any) => {
+                if (event.error === 'no-speech' || event.error === 'aborted') {
+                    // Ignore benign errors
+                    console.warn(`Speech Recognition: ${event.error} (ignored)`);
+                    setIsListening(false);
+                    stopVolumeSimulation();
+                    return;
+                }
                 console.error("Speech Recognition Error", event.error);
                 if (onError) onError(event.error);
                 setIsListening(false);

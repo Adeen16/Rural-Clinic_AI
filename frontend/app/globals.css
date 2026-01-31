@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
-/* ===== GLAIDO DESIGN SYSTEM ===== */
+/* ===== RURALCLINIC AI DESIGN SYSTEM ===== */
+/* Based on branding.md specifications */
+
 :root {
-  /* Backgrounds */
+  /* Core Backgrounds */
   --background: #0a0a0a;
-  /* Deepest Black */
   --surface: #121212;
-  /* Card Surface */
   --surface-hover: #1e1e1e;
   --border: #2a2a2a;
   --border-light: #3f3f46;
@@ -14,56 +14,80 @@
   /* Typography */
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
-  /* Zinc 400 */
   --text-muted: #71717a;
-  /* Zinc 500 */
 
   /* Brand Colors */
   --primary: #3b82f6;
-  /* Electric Blue */
   --primary-hover: #2563eb;
   --primary-glow: rgba(59, 130, 246, 0.15);
 
   /* Functional Colors */
   --recording: #ef4444;
-  /* Vibrant Red */
   --recording-glow: rgba(239, 68, 68, 0.2);
   --success: #10b981;
-  /* Emerald */
   --success-glow: rgba(16, 185, 129, 0.15);
+  --warning: #f59e0b;
+  --destructive: #ef4444;
 
-  /* Triage States */
-  --triage-red: #ef4444;
-  --triage-red-bg: rgba(239, 68, 68, 0.1);
-  --triage-amber: #f59e0b;
-  --triage-amber-bg: rgba(245, 158, 11, 0.1);
-  --triage-green: #10b981;
-  --triage-green-bg: rgba(16, 185, 129, 0.1);
+  /* 5-Level ESI Triage Colors */
+  --triage-1: #dc2626; /* Resuscitation - Life threatening */
+  --triage-1-bg: rgba(220, 38, 38, 0.1);
+  --triage-2: #ef4444; /* Emergent - High risk */
+  --triage-2-bg: rgba(239, 68, 68, 0.1);
+  --triage-3: #f59e0b; /* Urgent - Multiple resources */
+  --triage-3-bg: rgba(245, 158, 11, 0.1);
+  --triage-4: #22c55e; /* Less Urgent - One resource */
+  --triage-4-bg: rgba(34, 197, 94, 0.1);
+  --triage-5: #10b981; /* Non-Urgent - Routine */
+  --triage-5-bg: rgba(16, 185, 129, 0.1);
+
+  /* Legacy aliases for existing components */
+  --triage-red: var(--triage-2);
+  --triage-red-bg: var(--triage-2-bg);
+  --triage-amber: var(--triage-3);
+  --triage-amber-bg: var(--triage-3-bg);
+  --triage-green: var(--triage-5);
+  --triage-green-bg: var(--triage-5-bg);
 }
 
+/* Tailwind v4 theme configuration */
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
+  --color-border-light: var(--border-light);
 
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
 
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
 
   --color-recording: var(--recording);
   --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
 
+  /* Triage colors */
+  --color-triage-1: var(--triage-1);
+  --color-triage-2: var(--triage-2);
+  --color-triage-3: var(--triage-3);
+  --color-triage-4: var(--triage-4);
+  --color-triage-5: var(--triage-5);
   --color-triage-red: var(--triage-red);
   --color-triage-amber: var(--triage-amber);
   --color-triage-green: var(--triage-green);
 }
 
-/* ===== BASE ===== */
+/* ===== BASE STYLES ===== */
 * {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -71,6 +95,26 @@ body {
   color: var(--text-primary);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== ACCESSIBILITY ===== */
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ===== CARDS ===== */
@@ -96,17 +140,18 @@ body {
   padding: 16px 32px;
   font-size: 16px;
   font-weight: 600;
-  color: #000;
-  background: var(--accent);
+  color: #fff;
+  background: var(--primary);
   border: none;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
-  min-height: 56px;
+  min-height: 48px;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
@@ -134,7 +179,7 @@ body {
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
-  min-height: 56px;
+  min-height: 48px;
 }
 
 .btn-secondary:hover {
@@ -142,10 +187,10 @@ body {
   border-color: var(--border-light);
 }
 
-/* ===== INPUT ===== */
+/* ===== FORM INPUTS ===== */
 .input-area {
   width: 100%;
-  padding: 20px;
+  padding: 16px 20px;
   font-size: 18px;
   line-height: 1.6;
   color: var(--text-primary);
@@ -162,8 +207,8 @@ body {
 }
 
 .input-area:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
 /* ===== VOICE BUTTON ===== */
@@ -183,37 +228,61 @@ body {
 }
 
 .voice-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--primary);
+  color: var(--primary);
   transform: scale(1.05);
 }
 
 .voice-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #000;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
   animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-
   0%,
   100% {
-    box-shadow: 0 0 0 0 var(--accent-glow);
+    box-shadow: 0 0 0 0 var(--primary-glow);
   }
-
   50% {
     box-shadow: 0 0 0 16px transparent;
   }
 }
 
-/* ===== TRIAGE CARDS ===== */
+/* ===== TRIAGE BANNERS ===== */
 .triage-banner {
   padding: 24px;
   border-radius: 16px;
   border: 2px solid;
 }
 
+.triage-banner.level-1 {
+  background: var(--triage-1-bg);
+  border-color: var(--triage-1);
+}
+
+.triage-banner.level-2 {
+  background: var(--triage-2-bg);
+  border-color: var(--triage-2);
+}
+
+.triage-banner.level-3 {
+  background: var(--triage-3-bg);
+  border-color: var(--triage-3);
+}
+
+.triage-banner.level-4 {
+  background: var(--triage-4-bg);
+  border-color: var(--triage-4);
+}
+
+.triage-banner.level-5 {
+  background: var(--triage-5-bg);
+  border-color: var(--triage-5);
+}
+
+/* Legacy aliases */
 .triage-banner.red {
   background: var(--triage-red-bg);
   border-color: var(--triage-red);
@@ -235,7 +304,6 @@ body {
     opacity: 0;
     transform: translateY(16px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -246,23 +314,89 @@ body {
   animation: fade-up 0.4s ease-out forwards;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
 /* ===== STATUS INDICATOR ===== */
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--primary);
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
 @keyframes pulse-dot {
-
   0%,
   100% {
     opacity: 1;
   }
-
   50% {
     opacity: 0.4;
+  }
+}
+
+/* ===== SKELETON LOADER ===== */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 2s ease-in-out infinite;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-light);
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary {
+    min-height: 48px;
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+
+  .input-area {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 14px 16px;
   }
 }
