@@ -8,26 +8,24 @@ interface ProvidersProps {
 
 /**
  * Application-wide providers wrapper.
- * Configures Clerk with dark theme to match RuralClinic AI design system.
- * 
- * Note: Using inline dark theme configuration instead of @clerk/themes
- * to reduce dependencies.
+ * Configures Clerk with light theme to match RuralClinic design system.
+ * Healthcare-friendly blue and green accents.
  */
 export function Providers({ children }: ProvidersProps) {
   return (
     <ClerkProvider
       appearance={{
-        // Dark theme configuration inline (matches branding.md)
+        // Light theme configuration (healthcare-friendly)
         variables: {
-          colorPrimary: "#3b82f6",
-          colorBackground: "#0a0a0a",
-          colorInputBackground: "#121212",
-          colorInputText: "#ffffff",
+          colorPrimary: "#2563eb",
+          colorBackground: "#ffffff",
+          colorInputBackground: "#f8fafc",
+          colorInputText: "#1e293b",
           colorTextOnPrimaryBackground: "#ffffff",
-          colorTextSecondary: "#a1a1aa",
-          colorDanger: "#ef4444",
-          colorSuccess: "#10b981",
-          colorWarning: "#f59e0b",
+          colorTextSecondary: "#475569",
+          colorDanger: "#dc2626",
+          colorSuccess: "#059669",
+          colorWarning: "#d97706",
           borderRadius: "12px",
           fontFamily: "Inter, system-ui, -apple-system, sans-serif",
         },
@@ -35,76 +33,76 @@ export function Providers({ children }: ProvidersProps) {
           // Root container
           rootBox: "w-full",
           
-          // Card styling
-          card: "bg-[#121212] border border-[#2a2a2a] shadow-xl rounded-2xl",
+          // Card styling - Light theme
+          card: "bg-white border border-[#e2e8f0] shadow-lg rounded-2xl",
           
           // Header
-          headerTitle: "text-2xl font-bold text-white",
-          headerSubtitle: "text-[#a1a1aa]",
+          headerTitle: "text-2xl font-bold text-[#1e293b]",
+          headerSubtitle: "text-[#475569]",
           
           // Social buttons
           socialButtonsBlockButton:
-            "bg-[#121212] border border-[#2a2a2a] hover:bg-[#1e1e1e] transition-colors text-white",
-          socialButtonsBlockButtonText: "text-white font-medium",
-          socialButtonsBlockButtonArrow: "text-[#a1a1aa]",
+            "bg-white border border-[#e2e8f0] hover:bg-[#f1f5f9] transition-colors text-[#1e293b]",
+          socialButtonsBlockButtonText: "text-[#1e293b] font-medium",
+          socialButtonsBlockButtonArrow: "text-[#475569]",
           
           // Form elements
           formButtonPrimary:
-            "bg-[#3b82f6] hover:bg-[#2563eb] text-white font-medium h-12 rounded-xl shadow-lg",
+            "bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-medium h-12 rounded-xl shadow-md",
           formFieldInput:
-            "bg-[#0a0a0a] border-[#2a2a2a] text-white h-12 rounded-xl text-base placeholder:text-[#71717a] focus:border-[#3b82f6] focus:ring-2 focus:ring-[#3b82f6]/20",
-          formFieldLabel: "text-[#a1a1aa] text-sm font-medium",
-          formFieldHintText: "text-[#71717a]",
-          formFieldErrorText: "text-[#ef4444]",
-          formFieldSuccessText: "text-[#10b981]",
+            "bg-[#f8fafc] border-[#e2e8f0] text-[#1e293b] h-12 rounded-xl text-base placeholder:text-[#64748b] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20",
+          formFieldLabel: "text-[#475569] text-sm font-medium",
+          formFieldHintText: "text-[#64748b]",
+          formFieldErrorText: "text-[#dc2626]",
+          formFieldSuccessText: "text-[#059669]",
           
           // Footer
-          footerActionText: "text-[#71717a] text-sm",
-          footerActionLink: "text-[#3b82f6] hover:text-[#2563eb] font-medium",
+          footerActionText: "text-[#64748b] text-sm",
+          footerActionLink: "text-[#2563eb] hover:text-[#1d4ed8] font-medium",
           
           // Divider
-          dividerLine: "bg-[#2a2a2a]",
-          dividerText: "text-[#71717a] text-xs",
+          dividerLine: "bg-[#e2e8f0]",
+          dividerText: "text-[#64748b] text-xs",
           
           // Identity preview
-          identityPreviewText: "text-white",
-          identityPreviewEditButton: "text-[#3b82f6] hover:text-[#2563eb]",
-          identityPreviewEditButtonIcon: "text-[#3b82f6]",
+          identityPreviewText: "text-[#1e293b]",
+          identityPreviewEditButton: "text-[#2563eb] hover:text-[#1d4ed8]",
+          identityPreviewEditButtonIcon: "text-[#2563eb]",
           
           // OTP input
           otpCodeFieldInput:
-            "bg-[#0a0a0a] border-[#2a2a2a] text-white text-2xl h-14 rounded-xl focus:border-[#3b82f6]",
+            "bg-[#f8fafc] border-[#e2e8f0] text-[#1e293b] text-2xl h-14 rounded-xl focus:border-[#2563eb]",
           
           // Resend code link
-          formResendCodeLink: "text-[#3b82f6] hover:text-[#2563eb] text-sm",
+          formResendCodeLink: "text-[#2563eb] hover:text-[#1d4ed8] text-sm",
           
           // Alerts
-          alert: "bg-[#121212] border border-[#2a2a2a] text-white rounded-xl",
-          alertText: "text-[#a1a1aa]",
+          alert: "bg-[#f8fafc] border border-[#e2e8f0] text-[#1e293b] rounded-xl",
+          alertText: "text-[#475569]",
           
           // User button (when signed in)
-          userButtonBox: "focus:ring-2 focus:ring-[#3b82f6]/20",
-          userButtonTrigger: "focus:ring-2 focus:ring-[#3b82f6]/20",
-          userButtonPopoverCard: "bg-[#121212] border border-[#2a2a2a] rounded-xl",
-          userButtonPopoverActionButton: "hover:bg-[#1e1e1e]",
-          userButtonPopoverActionButtonText: "text-white",
-          userButtonPopoverActionButtonIcon: "text-[#a1a1aa]",
-          userButtonPopoverFooter: "border-t border-[#2a2a2a]",
+          userButtonBox: "focus:ring-2 focus:ring-[#2563eb]/20",
+          userButtonTrigger: "focus:ring-2 focus:ring-[#2563eb]/20",
+          userButtonPopoverCard: "bg-white border border-[#e2e8f0] rounded-xl shadow-lg",
+          userButtonPopoverActionButton: "hover:bg-[#f1f5f9]",
+          userButtonPopoverActionButtonText: "text-[#1e293b]",
+          userButtonPopoverActionButtonIcon: "text-[#475569]",
+          userButtonPopoverFooter: "border-t border-[#e2e8f0]",
           
           // User profile
-          userPreviewMainIdentifier: "text-white",
-          userPreviewSecondaryIdentifier: "text-[#a1a1aa]",
+          userPreviewMainIdentifier: "text-[#1e293b]",
+          userPreviewSecondaryIdentifier: "text-[#475569]",
           
           // Modal overlay
-          modalBackdrop: "bg-black/60 backdrop-blur-sm",
-          modalContent: "bg-[#121212] border border-[#2a2a2a] rounded-2xl",
+          modalBackdrop: "bg-black/40 backdrop-blur-sm",
+          modalContent: "bg-white border border-[#e2e8f0] rounded-2xl shadow-xl",
           
           // Navigation
-          navbarButton: "text-[#a1a1aa] hover:text-white",
-          navbarButtonIcon: "text-[#a1a1aa]",
+          navbarButton: "text-[#475569] hover:text-[#1e293b]",
+          navbarButtonIcon: "text-[#475569]",
           
           // Badge
-          badge: "bg-[#3b82f6]/20 text-[#3b82f6]",
+          badge: "bg-[#2563eb]/10 text-[#2563eb]",
         },
       }}
     >

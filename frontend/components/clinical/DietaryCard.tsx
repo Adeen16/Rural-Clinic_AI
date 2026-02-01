@@ -23,7 +23,7 @@ export function DietaryCard({ advice }: DietaryCardProps) {
                     <h3 className="text-sm font-medium text-emerald-400 uppercase tracking-wider">
                         Patient Care Plan
                     </h3>
-                    <h2 className="text-xl font-bold text-white">
+                    <h2 className="text-xl font-bold text-text-primary">
                         Sahi Khaana (Diet & Habits)
                     </h2>
                 </div>
@@ -34,7 +34,7 @@ export function DietaryCard({ advice }: DietaryCardProps) {
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* Recommended Foods */}
                     <div className="space-y-3">
-                        <h4 className="flex items-center gap-2 text-sm font-semibold text-white">
+                        <h4 className="flex items-center gap-2 text-sm font-semibold text-text-primary">
                             <span className="w-2 h-2 rounded-full bg-emerald-500" />
                             Recommended Foods (Khaiye)
                         </h4>
@@ -50,7 +50,7 @@ export function DietaryCard({ advice }: DietaryCardProps) {
 
                     {/* Avoid Foods */}
                     <div className="space-y-3">
-                        <h4 className="flex items-center gap-2 text-sm font-semibold text-white">
+                        <h4 className="flex items-center gap-2 text-sm font-semibold text-text-primary">
                             <span className="w-2 h-2 rounded-full bg-red-400" />
                             Foods to Avoid (Na Khaiye)
                         </h4>

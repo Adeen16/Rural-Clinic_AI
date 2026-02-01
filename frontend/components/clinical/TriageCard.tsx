@@ -22,63 +22,63 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /**
- * 5-Level ESI Triage Configuration
- * Based on Emergency Severity Index protocol
+ * 5-Level Priority Configuration
+ * Human-friendly naming for patients
  */
-const TRIAGE_CONFIG = {
+const PRIORITY_CONFIG = {
   1: {
     level: 1,
-    name: "Resuscitation",
-    description: "Life-threatening, immediate intervention required",
+    name: "Immediate Emergency",
+    description: "You need immediate medical attention right now",
     icon: Heart,
-    color: "text-red-500",
+    color: "text-red-600",
     borderColor: "border-red-500",
-    bgColor: "bg-red-500/10",
-    glowColor: "shadow-[0_0_40px_-10px_rgba(220,38,38,0.6)]",
+    bgColor: "bg-red-50",
+    glowColor: "shadow-[0_0_40px_-10px_rgba(220,38,38,0.4)]",
     badgeVariant: "destructive" as const,
   },
   2: {
     level: 2,
-    name: "Emergent",
-    description: "High-risk, time-sensitive condition",
+    name: "High Priority",
+    description: "You should be seen by a doctor very soon",
     icon: AlertTriangle,
-    color: "text-triage-red",
-    borderColor: "border-triage-red",
-    bgColor: "bg-triage-red/10",
-    glowColor: "shadow-[0_0_40px_-10px_var(--triage-red)]",
+    color: "text-orange-600",
+    borderColor: "border-orange-500",
+    bgColor: "bg-orange-50",
+    glowColor: "shadow-[0_0_40px_-10px_rgba(234,88,12,0.4)]",
     badgeVariant: "destructive" as const,
   },
   3: {
     level: 3,
-    name: "Urgent",
-    description: "Stable, multiple resources expected",
+    name: "Moderate Priority",
+    description: "You need care today, but can wait a bit",
     icon: Clock,
-    color: "text-triage-amber",
-    borderColor: "border-triage-amber",
-    bgColor: "bg-triage-amber/10",
-    glowColor: "shadow-[0_0_40px_-10px_var(--triage-amber)]",
+    color: "text-amber-600",
+    borderColor: "border-amber-500",
+    bgColor: "bg-amber-50",
+    glowColor: "shadow-[0_0_40px_-10px_rgba(217,119,6,0.4)]",
     badgeVariant: "warning" as const,
   },
   4: {
     level: 4,
-    name: "Less Urgent",
-    description: "Non-urgent, one resource expected",
+    name: "Standard Care",
+    description: "You can be seen during regular hours",
     icon: Activity,
-    color: "text-green-400",
-    borderColor: "border-green-500",
-    bgColor: "bg-green-500/10",
-    glowColor: "shadow-[0_0_40px_-10px_rgba(34,197,94,0.5)]",
+    color: "text-emerald-600",
+    borderColor: "border-emerald-500",
+    bgColor: "bg-emerald-50",
+    glowColor: "shadow-[0_0_40px_-10px_rgba(5,150,105,0.4)]",
     badgeVariant: "success" as const,
   },
   5: {
     level: 5,
-    name: "Non-Urgent",
-    description: "Routine care, no resources expected",
+    name: "Routine Visit",
+    description: "This can wait for a scheduled appointment",
     icon: CheckCircle,
-    color: "text-triage-green",
-    borderColor: "border-triage-green",
-    bgColor: "bg-triage-green/10",
-    glowColor: "shadow-[0_0_40px_-10px_var(--triage-green)]",
+    color: "text-teal-600",
+    borderColor: "border-teal-500",
+    bgColor: "bg-teal-50",
+    glowColor: "shadow-[0_0_40px_-10px_rgba(13,148,136,0.4)]",
     badgeVariant: "success" as const,
   },
 } as const;
@@ -90,15 +90,15 @@ const LEGACY_MAPPING = {
   GREEN: 5,
 } as const;
 
-type TriageLevel = 1 | 2 | 3 | 4 | 5;
+type PriorityLevel = 1 | 2 | 3 | 4 | 5;
 type LegacyPriority = "RED" | "AMBER" | "GREEN";
 
 export interface TriageResult {
-  /** ESI level (1-5) or legacy priority (RED/AMBER/GREEN) */
-  priority: TriageLevel | LegacyPriority;
+  /** Priority level (1-5) or legacy priority (RED/AMBER/GREEN) */
+  priority: PriorityLevel | LegacyPriority;
   /** Action instruction for patient/staff */
   action: string;
-  /** AI rationale (optional, for transparency) */
+  /** Reasoning (optional, for transparency) */
   rationale?: string;
 }
 
@@ -110,24 +110,23 @@ interface TriageCardProps {
 }
 
 /**
- * TriageCard Component
+ * Priority Card Component
  *
- * Displays triage result with 5-level ESI visual hierarchy.
- * Supports legacy RED/AMBER/GREEN priorities for backward compatibility.
- * Never displays diagnosis - only symptoms, priority, and next steps.
+ * Displays health check result with 5-level visual hierarchy.
+ * Uses plain, reassuring language suitable for all users.
  */
 export default function TriageCard({
   result,
   onReset,
   detailed = false,
 }: TriageCardProps) {
-  // Convert legacy priority to ESI level
-  const level: TriageLevel =
+  // Convert legacy priority to level
+  const level: PriorityLevel =
     typeof result.priority === "number"
       ? result.priority
       : LEGACY_MAPPING[result.priority];
 
-  const config = TRIAGE_CONFIG[level];
+  const config = PRIORITY_CONFIG[level];
   const Icon = config.icon;
 
   return (
@@ -138,20 +137,14 @@ export default function TriageCard({
     >
       <Card
         className={cn(
-          "relative overflow-hidden border-2 bg-surface backdrop-blur-xl",
+          "relative overflow-hidden border-2 bg-surface",
           config.borderColor,
           config.glowColor
         )}
       >
         {/* Background Gradient */}
         <div
-          className={cn("absolute inset-0 opacity-30", config.bgColor)}
-          style={{
-            background: `linear-gradient(to bottom, var(--${config.bgColor.replace(
-              "bg-",
-              ""
-            )}), transparent)`,
-          }}
+          className={cn("absolute inset-0 opacity-50", config.bgColor)}
         />
 
         <CardHeader className="relative z-10 flex flex-row items-center gap-4 pb-2">
@@ -172,7 +165,7 @@ export default function TriageCard({
               <Badge variant={config.badgeVariant} size="sm">
                 Level {level}
               </Badge>
-              <span className="text-xs text-text-muted">ESI</span>
+              <span className="text-xs text-text-muted">Priority</span>
             </div>
             <CardTitle className="text-2xl">{config.name}</CardTitle>
           </div>
@@ -185,7 +178,7 @@ export default function TriageCard({
           {/* Action Box */}
           <div className={cn("p-4 rounded-xl", config.bgColor)}>
             <h3 className="text-sm font-medium text-text-muted uppercase tracking-wide mb-2">
-              Next Step
+              What To Do Next
             </h3>
             <p className="text-xl font-medium text-text-primary leading-relaxed">
               {result.action}
@@ -194,9 +187,9 @@ export default function TriageCard({
 
           {/* Rationale (only if detailed and provided) */}
           {detailed && result.rationale && (
-            <div className="p-4 rounded-xl bg-surface/50 border border-border/50">
+            <div className="p-4 rounded-xl bg-surface border border-border">
               <h4 className="text-sm font-medium text-text-muted mb-1">
-                Assessment Notes
+                Why This Recommendation
               </h4>
               <p className="text-sm text-text-secondary leading-relaxed">
                 {result.rationale}
@@ -208,29 +201,29 @@ export default function TriageCard({
         <CardFooter className="relative z-10 gap-4 pt-2">
           <Button variant="outline" className="w-full" onClick={onReset}>
             <RotateCcw className="w-4 h-4 mr-2" />
-            New Check-in
+            Start Over
           </Button>
           <Button
             variant="default"
             className={cn(
-              "w-full bg-surface hover:bg-surface-hover text-white border",
+              "w-full bg-surface hover:bg-surface-hover text-text-primary border",
               config.borderColor
             )}
           >
-            View Details
+            See Details
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </CardFooter>
       </Card>
 
       {/* Disclaimer */}
-      <p className="mt-6 text-center text-xs text-text-muted opacity-60">
-        This triage level was determined by clinical rule protocols.
+      <p className="mt-6 text-center text-xs text-text-muted opacity-80">
+        This recommendation is based on the information you provided.
         <br />
-        Final care decisions are made by healthcare providers.
+        A healthcare professional will review your case.
       </p>
     </motion.div>
   );
 }
 
-export { TRIAGE_CONFIG, type TriageLevel, type LegacyPriority };
+export { PRIORITY_CONFIG as TRIAGE_CONFIG, type PriorityLevel as TriageLevel, type LegacyPriority };

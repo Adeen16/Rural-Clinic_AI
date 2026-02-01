@@ -243,7 +243,7 @@ export default function SymptomReviewPage() {
             </Button>
           </Link>
           <div className="flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
               Symptom Review
             </h1>
             <p className="text-text-secondary text-sm">
@@ -280,7 +280,7 @@ export default function SymptomReviewPage() {
         {/* Symptom List */}
         <div className="space-y-4 mb-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-text-primary flex items-center gap-2">
               Extracted Symptoms
               <Badge variant="secondary" size="sm">
                 AI-Assisted
@@ -346,7 +346,7 @@ export default function SymptomReviewPage() {
                               type="text"
                               value={editValue}
                               onChange={(e) => setEditValue(e.target.value)}
-                              className="flex-1 px-3 py-2 bg-background border border-primary rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary/20"
+                              className="flex-1 px-3 py-2 bg-background border border-primary rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                               autoFocus
                               onKeyDown={(e) => {
                                 if (e.key === "Enter") saveEdit(symptom.id);
@@ -363,7 +363,7 @@ export default function SymptomReviewPage() {
                         ) : (
                           <>
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-medium text-white">
+                              <span className="font-medium text-text-primary">
                                 {symptom.normalized}
                               </span>
                               <Badge variant="secondary" size="sm">
@@ -425,7 +425,7 @@ export default function SymptomReviewPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="p-4 rounded-xl border border-primary/30 bg-primary/5"
                 >
-                  <p className="text-sm font-medium text-white mb-2">
+                  <p className="text-sm font-medium text-text-primary mb-2">
                     Add Missing Symptom
                   </p>
                   <div className="flex gap-2">
@@ -434,7 +434,7 @@ export default function SymptomReviewPage() {
                       value={newSymptom}
                       onChange={(e) => setNewSymptom(e.target.value)}
                       placeholder="Enter symptom description..."
-                      className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       autoFocus
                       onKeyDown={(e) => {
                         if (e.key === "Enter") addSymptom();
@@ -480,7 +480,7 @@ export default function SymptomReviewPage() {
         <Card className="p-6">
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <div className="flex-1 text-center sm:text-left">
-              <h3 className="font-semibold text-white">Ready for Triage?</h3>
+              <h3 className="font-semibold text-text-primary">Ready for Health Check?</h3>
               <p className="text-sm text-text-secondary">
                 {allVerified
                   ? "All symptoms verified. Proceed to triage."

@@ -56,7 +56,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         )}
         <div className="flex-1 min-w-0">
           {title && (
-            <h5 className="font-semibold text-white mb-1">{title}</h5>
+            <h5 className="font-semibold text-text-primary mb-1">{title}</h5>
           )}
           <div className="text-sm text-text-secondary">{children}</div>
         </div>

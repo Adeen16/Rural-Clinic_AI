@@ -160,7 +160,7 @@ export default function AuditTrailPage() {
         <div className="min-h-screen p-4 md:p-8 flex items-center justify-center">
           <Card className="p-8 text-center max-w-md">
             <AlertTriangle className="w-12 h-12 text-triage-amber mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-white mb-2">Audit Not Found</h2>
+            <h2 className="text-xl font-bold text-text-primary mb-2">Audit Not Found</h2>
             <p className="text-text-secondary mb-6">
               The audit trail for this consultation could not be loaded.
             </p>
@@ -199,7 +199,7 @@ export default function AuditTrailPage() {
             </Button>
           </Link>
           <div className="flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
               Audit Trail
             </h1>
             <p className="text-text-secondary text-sm">
@@ -223,7 +223,7 @@ export default function AuditTrailPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white mb-2">
+              <div className="text-3xl font-bold text-text-primary mb-2">
                 {auditData.inputSymptoms.length}
               </div>
               <div className="flex flex-wrap gap-1">
@@ -245,7 +245,7 @@ export default function AuditTrailPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white mb-2">
+              <div className="text-3xl font-bold text-text-primary mb-2">
                 {triggeredRules.length}
                 <span className="text-lg text-text-muted font-normal">
                   /{auditData.rulesExecuted.length}
@@ -306,7 +306,7 @@ export default function AuditTrailPage() {
                     {i + 1}
                   </div>
                   <div>
-                    <p className="font-medium text-white">{symptom.normalized}</p>
+                    <p className="font-medium text-text-primary">{symptom.normalized}</p>
                     <p className="text-xs text-text-muted">{symptom.category}</p>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ export default function AuditTrailPage() {
                       <CheckCircle2 className="w-5 h-5 text-triage-green flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-medium text-white">
+                          <span className="font-medium text-text-primary">
                             {rule.ruleName}
                           </span>
                           <Badge variant="secondary" size="sm">
@@ -460,13 +460,13 @@ export default function AuditTrailPage() {
                   <span className="flex-1 text-text-secondary truncate">
                     {item.name}
                   </span>
-                  <span className="font-mono text-white">
+                  <span className="font-mono text-text-primary">
                     +{item.score.toFixed(1)}
                   </span>
                 </div>
               ))}
               <div className="border-t border-border pt-3 mt-3 flex items-center gap-4">
-                <span className="flex-1 font-semibold text-white">
+                <span className="flex-1 font-semibold text-text-primary">
                   Total Score
                 </span>
                 <span className="font-mono text-xl text-primary font-bold">
@@ -497,7 +497,7 @@ export default function AuditTrailPage() {
                         : "border-border"
                     )}
                   >
-                    <div className="font-bold text-white">L{item.level}</div>
+                    <div className="font-bold text-text-primary">L{item.level}</div>
                     <div className="text-text-muted">{item.range}</div>
                   </div>
                 ))}

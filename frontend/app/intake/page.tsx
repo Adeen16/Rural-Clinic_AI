@@ -175,7 +175,7 @@ export default function IntakePage() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-white">
+              <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
                 Patient Intake
               </h1>
               <p className="text-text-secondary text-sm md:text-base">
@@ -188,7 +188,7 @@ export default function IntakePage() {
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="p-2 bg-background border border-border rounded-lg text-white text-sm focus:ring-2 focus:ring-primary/20"
+            className="p-2 bg-surface border border-border rounded-lg text-text-primary text-sm focus:ring-2 focus:ring-primary/20"
           >
             <option value="en-US">English (US)</option>
             <option value="hi-IN">Hindi (हिन्दी)</option>
@@ -214,7 +214,7 @@ export default function IntakePage() {
 
         {/* Patient Demographics */}
         <Card className="p-6 md:p-8 space-y-6 mb-8">
-          <h2 className="text-xl font-bold text-white">Patient Details</h2>
+          <h2 className="text-xl font-bold text-text-primary">Patient Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-text-secondary">Full Name (Optional)</label>
@@ -223,7 +223,7 @@ export default function IntakePage() {
                 value={patientName}
                 onChange={(e) => setPatientName(e.target.value)}
                 placeholder="John Doe"
-                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+                className="w-full p-3 bg-surface border border-border rounded-lg text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
               />
             </div>
             <div className="space-y-2">
@@ -233,7 +233,7 @@ export default function IntakePage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+                className="w-full p-3 bg-surface border border-border rounded-lg text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -244,7 +244,7 @@ export default function IntakePage() {
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   placeholder="45"
-                  className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+                  className="w-full p-3 bg-surface border border-border rounded-lg text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
                 />
               </div>
               <div className="space-y-2">
@@ -267,7 +267,7 @@ export default function IntakePage() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Village / Area"
-                className="w-full p-3 bg-background border border-border rounded-lg text-white placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
+                className="w-full p-3 bg-surface border border-border rounded-lg text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-primary/20"
               />
             </div>
           </div>
@@ -312,7 +312,7 @@ export default function IntakePage() {
                     "w-full min-h-[160px] p-4 md:p-5",
                     "text-lg md:text-xl leading-relaxed",
                     "bg-background border border-border rounded-xl",
-                    "text-white placeholder:text-text-muted",
+                    "text-text-primary placeholder:text-text-muted",
                     "focus:border-primary focus:ring-2 focus:ring-primary/20",
                     "transition-all resize-none"
                   )}
@@ -343,7 +343,7 @@ export default function IntakePage() {
                 className="p-4 bg-primary/5 border border-primary/20 rounded-xl"
               >
                 <p className="text-sm text-text-muted mb-1">Hearing:</p>
-                <p className="text-lg text-white">
+                <p className="text-lg text-text-primary">
                   {transcript}
                   <span className="inline-block w-0.5 h-5 ml-1 bg-primary animate-pulse" />
                 </p>

@@ -59,7 +59,7 @@ export default function NetworkPage() {
                                 </div>
                                 <div className="flex-1 space-y-1">
                                     <div className="flex justify-between items-start">
-                                        <h3 className="text-lg font-semibold text-white">{doc.name}</h3>
+                                        <h3 className="text-lg font-semibold text-text-primary">{doc.name}</h3>
                                         <div className="flex items-center text-amber-400 text-sm">
                                             <Star className="w-4 h-4 fill-current mr-1" />
                                             {doc.rating}

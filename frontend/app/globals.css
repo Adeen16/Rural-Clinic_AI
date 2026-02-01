@@ -1,45 +1,50 @@
 @import "tailwindcss";
 
-/* ===== RURALCLINIC AI DESIGN SYSTEM ===== */
-/* Based on branding.md specifications */
+/* ===== RURALCLINIC DESIGN SYSTEM ===== */
+/* Light theme with blue/green healthcare-friendly accents */
 
 :root {
-  /* Core Backgrounds */
-  --background: #0a0a0a;
-  --surface: #121212;
-  --surface-hover: #1e1e1e;
-  --border: #2a2a2a;
-  --border-light: #3f3f46;
+  /* Core Backgrounds - Light Blue Theme */
+  --background: #f0f7ff;
+  --surface: #ffffff;
+  --surface-hover: #e8f2ff;
+  --border: #d4e5f7;
+  --border-light: #b8d4f0;
 
-  /* Typography */
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  /* Typography - Dark text on light background */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
 
-  /* Brand Colors */
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --primary-glow: rgba(59, 130, 246, 0.15);
+  /* Brand Colors - Healthcare Blue & Green */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+
+  /* Accent Green - Calming healthcare green */
+  --accent-green: #059669;
+  --accent-green-hover: #047857;
+  --accent-green-glow: rgba(5, 150, 105, 0.15);
 
   /* Functional Colors */
-  --recording: #ef4444;
-  --recording-glow: rgba(239, 68, 68, 0.2);
-  --success: #10b981;
-  --success-glow: rgba(16, 185, 129, 0.15);
-  --warning: #f59e0b;
-  --destructive: #ef4444;
+  --recording: #dc2626;
+  --recording-glow: rgba(220, 38, 38, 0.15);
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.15);
+  --warning: #d97706;
+  --destructive: #dc2626;
 
-  /* 5-Level ESI Triage Colors */
-  --triage-1: #dc2626; /* Resuscitation - Life threatening */
-  --triage-1-bg: rgba(220, 38, 38, 0.1);
-  --triage-2: #ef4444; /* Emergent - High risk */
-  --triage-2-bg: rgba(239, 68, 68, 0.1);
-  --triage-3: #f59e0b; /* Urgent - Multiple resources */
-  --triage-3-bg: rgba(245, 158, 11, 0.1);
-  --triage-4: #22c55e; /* Less Urgent - One resource */
-  --triage-4-bg: rgba(34, 197, 94, 0.1);
-  --triage-5: #10b981; /* Non-Urgent - Routine */
-  --triage-5-bg: rgba(16, 185, 129, 0.1);
+  /* 5-Level Priority Colors (Patient-friendly naming) */
+  --triage-1: #dc2626; /* Immediate Emergency */
+  --triage-1-bg: rgba(220, 38, 38, 0.08);
+  --triage-2: #ea580c; /* High Priority */
+  --triage-2-bg: rgba(234, 88, 12, 0.08);
+  --triage-3: #d97706; /* Moderate Priority */
+  --triage-3-bg: rgba(217, 119, 6, 0.08);
+  --triage-4: #059669; /* Standard Care */
+  --triage-4-bg: rgba(5, 150, 105, 0.08);
+  --triage-5: #0d9488; /* Routine Visit */
+  --triage-5-bg: rgba(13, 148, 136, 0.08);
 
   /* Legacy aliases for existing components */
   --triage-red: var(--triage-2);
@@ -70,7 +75,7 @@
   --color-warning: var(--warning);
   --color-destructive: var(--destructive);
 
-  /* Triage colors */
+  /* Priority colors */
   --color-triage-1: var(--triage-1);
   --color-triage-2: var(--triage-2);
   --color-triage-3: var(--triage-3);
@@ -122,13 +127,14 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .card-elevated {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* ===== BUTTONS ===== */
@@ -147,7 +153,7 @@ body {
   cursor: pointer;
   transition: all 0.15s ease;
   min-height: 48px;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
 }
 
 .btn-primary:hover {
@@ -194,7 +200,7 @@ body {
   font-size: 18px;
   line-height: 1.6;
   color: var(--text-primary);
-  background: var(--background);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
   resize: none;
@@ -250,7 +256,7 @@ body {
   }
 }
 
-/* ===== TRIAGE BANNERS ===== */
+/* ===== PRIORITY BANNERS ===== */
 .triage-banner {
   padding: 24px;
   border-radius: 16px;

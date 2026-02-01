@@ -1,11 +1,12 @@
 import { SignUp } from "@clerk/nextjs";
-import { Activity, Shield } from "lucide-react";
+import Image from "next/image";
+import { Shield } from "lucide-react";
 
 /**
  * Sign Up Page
  * 
  * Features passwordless registration via Clerk (SMS / Email OTP).
- * Emphasizes trust and simplicity for healthcare workers.
+ * Emphasizes trust and simplicity with light theme.
  */
 export default function SignUpPage() {
   return (
@@ -16,12 +17,19 @@ export default function SignUpPage() {
       <div className="relative z-10 w-full max-w-md flex flex-col items-center gap-8">
         {/* Branding Header */}
         <header className="text-center space-y-4">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 mb-2">
-            <Activity className="w-8 h-8 text-primary" />
+          <div className="inline-flex items-center justify-center mb-2">
+            <Image
+              src="/logo.png"
+              alt="RuralClinic Logo"
+              width={80}
+              height={80}
+              className="rounded-2xl"
+              priority
+            />
           </div>
-          <h1 className="text-3xl font-bold text-white">Join RuralClinic AI</h1>
+          <h1 className="text-3xl font-bold text-primary">Create Account</h1>
           <p className="text-text-secondary text-lg max-w-xs mx-auto">
-            Create your account to start providing faster care
+            Join RuralClinic to get personalized health guidance
           </p>
         </header>
 
@@ -30,8 +38,8 @@ export default function SignUpPage() {
           appearance={{
             elements: {
               rootBox: "w-full",
-              card: "bg-surface border border-border shadow-2xl rounded-2xl p-0",
-              headerTitle: "text-xl font-semibold text-white",
+              card: "bg-surface border border-border shadow-lg rounded-2xl p-0",
+              headerTitle: "text-xl font-semibold text-text-primary",
               headerSubtitle: "text-text-secondary text-sm",
               socialButtonsBlockButton:
                 "bg-surface hover:bg-surface-hover border border-border text-text-primary font-medium h-12 rounded-xl transition-colors",
@@ -40,9 +48,9 @@ export default function SignUpPage() {
               dividerText: "text-text-muted text-xs",
               formFieldLabel: "text-text-secondary text-sm font-medium",
               formFieldInput:
-                "bg-background border-border text-white h-12 rounded-xl text-base placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20",
+                "bg-background border-border text-text-primary h-12 rounded-xl text-base placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/20",
               formButtonPrimary:
-                "bg-primary hover:bg-primary-hover text-white font-semibold h-12 rounded-xl shadow-lg shadow-primary/25 transition-all",
+                "bg-primary hover:bg-primary-hover text-white font-semibold h-12 rounded-xl shadow-md transition-all",
               footerActionText: "text-text-muted text-sm",
               footerActionLink:
                 "text-primary hover:text-primary-hover font-medium",
@@ -50,7 +58,7 @@ export default function SignUpPage() {
               identityPreviewEditButton: "text-primary hover:text-primary-hover",
               formResendCodeLink: "text-primary hover:text-primary-hover text-sm",
               otpCodeFieldInput:
-                "bg-background border-border text-white text-2xl h-14 rounded-xl",
+                "bg-background border-border text-text-primary text-2xl h-14 rounded-xl",
               alertText: "text-text-secondary text-sm",
             },
           }}
@@ -62,8 +70,8 @@ export default function SignUpPage() {
 
         {/* Trust Indicators */}
         <div className="flex items-center gap-2 text-xs text-text-muted">
-          <Shield className="w-4 h-4" />
-          <span>HIPAA-compliant infrastructure</span>
+          <Shield className="w-4 h-4 text-primary" />
+          <span>Private, secure, and compliant with healthcare standards</span>
         </div>
       </div>
     </main>

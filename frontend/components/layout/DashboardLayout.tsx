@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import {
-  Activity,
   ClipboardList,
   Users,
   Settings,
   BarChart3,
   Menu,
   X,
+  Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -20,13 +21,6 @@ interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-const navigation = [
-  { name: "Intake", href: "/intake", icon: Activity },
-  { name: "Review Queue", href: "/nurse/review", icon: ClipboardList },
-  { name: "Specialists", href: "/network", icon: Users },
-  { name: "Admin", href: "/admin", icon: BarChart3 },
-];
-
 /**
  * Shared dashboard layout with navigation.
  * Mobile-first responsive sidebar.
@@ -35,14 +29,28 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Navigation items (visible to all authenticated users)
+  const navigation = [
+    { name: "Health Check", href: "/intake", icon: Heart },
+    { name: "Review Queue", href: "/nurse/review", icon: ClipboardList },
+    { name: "Find Doctors", href: "/network", icon: Users },
+    { name: "Dashboard", href: "/admin", icon: BarChart3 },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 h-16">
           <Link href="/" className="flex items-center gap-2">
-            <Activity className="w-6 h-6 text-primary" />
-            <span className="font-bold text-lg text-white">RuralClinic</span>
+            <Image
+              src="/logo.png"
+              alt="RuralClinic Logo"
+              width={36}
+              height={36}
+              className="rounded-lg"
+            />
+            <span className="font-bold text-lg text-primary">RuralClinic</span>
           </Link>
           <div className="flex items-center gap-3">
             <UserButton
@@ -81,7 +89,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     "flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-colors",
                     isActive
                       ? "bg-primary/10 text-primary"
-                      : "text-text-secondary hover:bg-surface-hover hover:text-white"
+                      : "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
                   )}
                 >
                   <item.icon className="w-5 h-5" />
@@ -98,12 +106,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex flex-col h-full bg-surface border-r border-border">
           {/* Logo */}
           <div className="flex items-center gap-3 px-6 h-20 border-b border-border">
-            <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
-              <Activity className="w-6 h-6 text-primary" />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="RuralClinic Logo"
+              width={44}
+              height={44}
+              className="rounded-xl"
+            />
             <div>
-              <h1 className="font-bold text-lg text-white">RuralClinic AI</h1>
-              <p className="text-xs text-text-muted">Clinical Triage</p>
+              <h1 className="font-bold text-lg text-primary">RuralClinic</h1>
+              <p className="text-xs text-text-muted">Health Services</p>
             </div>
           </div>
 
@@ -119,7 +131,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors",
                     isActive
                       ? "bg-primary/10 text-primary border border-primary/20"
-                      : "text-text-secondary hover:bg-surface-hover hover:text-white"
+                      : "text-text-secondary hover:bg-surface-hover hover:text-text-primary"
                   )}
                 >
                   <item.icon className="w-5 h-5" />
@@ -140,7 +152,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 }}
               />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-white truncate">
+                <p className="text-sm font-medium text-text-primary truncate">
                   Signed In
                 </p>
                 <p className="text-xs text-text-muted">Healthcare Staff</p>

@@ -143,7 +143,7 @@ export default function AdminPage() {
         {/* Header */}
         <header className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
           <div className="flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
               Admin Dashboard
             </h1>
             <p className="text-text-secondary text-sm">
@@ -175,7 +175,7 @@ export default function AdminPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-text-primary">
                 {currentStats.totalConsultations}
               </div>
               <p className="text-xs text-triage-green flex items-center gap-1">
@@ -193,7 +193,7 @@ export default function AdminPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-text-primary">
                 {currentStats.avgTriageTime}
               </div>
               <p className="text-xs text-text-muted">Rule execution</p>
@@ -208,7 +208,7 @@ export default function AdminPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">
+              <div className="text-2xl font-bold text-text-primary">
                 {currentStats.rulesTriggered}
               </div>
               <p className="text-xs text-text-muted">
@@ -275,7 +275,7 @@ export default function AdminPage() {
                             {levelConfig.label}
                           </div>
                           <div>
-                            <p className="font-medium text-white text-sm">
+                            <p className="font-medium text-text-primary text-sm">
                               {consult.patientId}
                             </p>
                             <p className="text-xs text-text-muted">
@@ -339,7 +339,7 @@ export default function AdminPage() {
                   <Settings className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">Rule Editor</h3>
+                  <h3 className="font-semibold text-text-primary">Rule Editor</h3>
                   <p className="text-sm text-text-muted">
                     Configure triage rules
                   </p>
@@ -355,7 +355,7 @@ export default function AdminPage() {
                   <Users className="w-6 h-6 text-triage-green" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">User Management</h3>
+                  <h3 className="font-semibold text-text-primary">User Management</h3>
                   <p className="text-sm text-text-muted">Manage staff access</p>
                 </div>
               </div>
@@ -369,7 +369,7 @@ export default function AdminPage() {
                   <Shield className="w-6 h-6 text-triage-amber" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">Compliance</h3>
+                  <h3 className="font-semibold text-text-primary">Compliance</h3>
                   <p className="text-sm text-text-muted">Audit logs & reports</p>
                 </div>
               </div>
