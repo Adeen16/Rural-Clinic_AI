@@ -1,0 +1,36 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Acute Bronchitis",
+                      "confidence_score":  60,
+                      "differentials":  [
+                                            {
+                                                "condition":  "Pneumonia",
+                                                "probability":  30,
+                                                "reasoning":  "Chest pain and cough are common symptoms, but pneumonia typically presents with higher fever and severity of symptoms"
+                                            },
+                                            {
+                                                "condition":  "Coronary Artery Disease",
+                                                "probability":  10,
+                                                "reasoning":  "Chest pain is a classic symptom, but cough is less common in CAD; CRITICAL if chest pain is severe and radiates to arm or jaw"
+                                            }
+                                        ],
+                      "reasoning_summary":  "Patient presents with chest pain and cough, which could be indicative of a respiratory infection or cardiac issue, but insufficient information is available to determine the exact cause",
+                      "recommended_action":  "Refer to Pulmonologist or Cardiologist for further evaluation",
+                      "dietary_advice":  {
+                                             "recommended_foods":  [
+                                                                       "Warm Soup",
+                                                                       "Ginger Tea",
+                                                                       "Boiled Water"
+                                                                   ],
+                                             "foods_to_avoid":  [
+                                                                    "Spicy Foods",
+                                                                    "Fried Items",
+                                                                    "Cold Drinks"
+                                                                ],
+                                             "daily_habit":  "Drink warm water every morning"
+                                         }
+                  }
+}

@@ -1,0 +1,53 @@
+﻿{
+    "patient_input_summary":  "The patient is feeling pain",
+    "extracted_timestamp":  "2024-02-20T14:30:00Z",
+    "patient_demographics":  {
+                                 "age_value":  null,
+                                 "age_unit":  null
+                             },
+    "body_systems":  {
+                         "general":  [
+                                         {
+                                             "name":  "pain",
+                                             "value":  null,
+                                             "location":  null,
+                                             "severity_scale":  0,
+                                             "duration_value":  null,
+                                             "duration_unit":  null,
+                                             "body_system":  "general",
+                                             "certainty":  "certain",
+                                             "negated":  false,
+                                             "onset_timestamp":  null,
+                                             "resolution_timestamp":  null,
+                                             "notes":  null
+                                         }
+                                     ],
+                         "respiratory":  [
+
+                                         ],
+                         "cardiovascular":  [
+
+                                            ],
+                         "gastrointestinal":  [
+
+                                              ],
+                         "neurological":  [
+
+                                          ],
+                         "genitourinary":  [
+
+                                           ],
+                         "musculoskeletal":  [
+
+                                             ],
+                         "mental_health":  [
+
+                                           ]
+                     },
+    "flags":  {
+                  "uncertainty_detected":  false,
+                  "missing_critical_info":  [
+
+                                            ]
+              }
+}

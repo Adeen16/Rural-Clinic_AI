@@ -1,0 +1,41 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Migraine",
+                      "confidence_score":  60,
+                      "differentials":  [
+                                            {
+                                                "condition":  "Migraine",
+                                                "probability":  60,
+                                                "reasoning":  "Matches symptoms of headache, nausea, and photophobia"
+                                            },
+                                            {
+                                                "condition":  "Viral Meningitis",
+                                                "probability":  20,
+                                                "reasoning":  "Could be a cause of severe headache and photophobia, but less likely without additional symptoms like fever and stiff neck"
+                                            },
+                                            {
+                                                "condition":  "Tension Headache",
+                                                "probability":  20,
+                                                "reasoning":  "Possible due to headache, but less likely given the presence of nausea and photophobia"
+                                            }
+                                        ],
+                      "reasoning_summary":  "Patient presents with symptoms classic for migraine, but other conditions like viral meningitis cannot be ruled out without further evaluation",
+                      "recommended_action":  "Start with over-the-counter pain relief and consider referral to a neurologist for further evaluation",
+                      "dietary_advice":  {
+                                             "recommended_foods":  [
+                                                                       "Warm Khichdi",
+                                                                       "Curd (Dahi)",
+                                                                       "Boiled Water"
+                                                                   ],
+                                             "foods_to_avoid":  [
+                                                                    "Spicy Pickles",
+                                                                    "Fried Pakoras",
+                                                                    "Tea on empty stomach"
+                                                                ],
+                                             "daily_habit":  "Drink warm water every morning and avoid triggers like loud noises"
+                                         }
+                  }
+}

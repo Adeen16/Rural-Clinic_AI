@@ -1,0 +1,36 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Pharyngitis",
+                      "confidence_score":  60,
+                      "differentials":  [
+                                            {
+                                                "condition":  "Tonsillitis",
+                                                "probability":  30,
+                                                "reasoning":  "Sore throat and fever are common symptoms"
+                                            },
+                                            {
+                                                "condition":  "Influenza",
+                                                "probability":  10,
+                                                "reasoning":  "Fever can be a symptom, but more information is needed for a definitive diagnosis"
+                                            }
+                                        ],
+                      "reasoning_summary":  "Patient presents with symptoms of a sore throat and fever, which can be indicative of a respiratory infection",
+                      "recommended_action":  "Refer to a General Physician for further evaluation",
+                      "dietary_advice":  {
+                                             "recommended_foods":  [
+                                                                       "Warm Water",
+                                                                       "Curd (Dahi)",
+                                                                       "Ginger Tea"
+                                                                   ],
+                                             "foods_to_avoid":  [
+                                                                    "Spicy Foods",
+                                                                    "Fried Items",
+                                                                    "Cold Drinks"
+                                                                ],
+                                             "daily_habit":  "Drink warm water with a squeeze of lemon every morning"
+                                         }
+                  }
+}

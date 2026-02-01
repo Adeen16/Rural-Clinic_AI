@@ -1,0 +1,24 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Acute Coronary Syndrome",
+                      "confidence_score":  60,
+                      "differentials":  [
+                                            {
+                                                "condition":  "Pneumonia",
+                                                "probability":  20,
+                                                "reasoning":  "Cough and shortness of breath are classic symptoms"
+                                            },
+                                            {
+                                                "condition":  "Pulmonary Embolism",
+                                                "probability":  20,
+                                                "reasoning":  "Sudden onset of chest discomfort and shortness of breath"
+                                            }
+                                        ],
+                      "reasoning_summary":  "Patient presents with classic signs of cardiac and respiratory distress. Given the combination of chest discomfort, shortness of breath, and cough, a cardiac origin is suspected but pulmonary causes must also be considered. CRITICAL: These symptoms could indicate a life-threatening emergency such as a heart attack or pulmonary embolism.",
+                      "recommended_action":  "Immediate medical evaluation, including ECG and chest X-ray",
+                      "dietary_advice":  null
+                  }
+}

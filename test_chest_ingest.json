@@ -1,0 +1,67 @@
+﻿{
+    "patient_input_summary":  "Patient experiences chest pain while breathing deeply and has a cough with green phlegm",
+    "extracted_timestamp":  "2024-02-20T14:30:00Z",
+    "patient_demographics":  {
+                                 "age_value":  null,
+                                 "age_unit":  null
+                             },
+    "body_systems":  {
+                         "general":  [
+
+                                     ],
+                         "respiratory":  [
+                                             {
+                                                 "name":  "chest_pain",
+                                                 "value":  null,
+                                                 "location":  "Chest",
+                                                 "severity_scale":  6,
+                                                 "duration_value":  null,
+                                                 "duration_unit":  null,
+                                                 "body_system":  "respiratory",
+                                                 "certainty":  "certain",
+                                                 "negated":  false,
+                                                 "onset_timestamp":  null,
+                                                 "resolution_timestamp":  null,
+                                                 "notes":  "exacerbated by deep breathing"
+                                             },
+                                             {
+                                                 "name":  "cough",
+                                                 "value":  null,
+                                                 "location":  null,
+                                                 "severity_scale":  5,
+                                                 "duration_value":  null,
+                                                 "duration_unit":  null,
+                                                 "body_system":  "respiratory",
+                                                 "certainty":  "certain",
+                                                 "negated":  false,
+                                                 "onset_timestamp":  null,
+                                                 "resolution_timestamp":  null,
+                                                 "notes":  "produces green phlegm"
+                                             }
+                                         ],
+                         "cardiovascular":  [
+
+                                            ],
+                         "gastrointestinal":  [
+
+                                              ],
+                         "neurological":  [
+
+                                          ],
+                         "genitourinary":  [
+
+                                           ],
+                         "musculoskeletal":  [
+
+                                             ],
+                         "mental_health":  [
+
+                                           ]
+                     },
+    "flags":  {
+                  "uncertainty_detected":  false,
+                  "missing_critical_info":  [
+
+                                            ]
+              }
+}

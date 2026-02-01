@@ -252,30 +252,7 @@ export default function TriageResultPage() {
           </div>
         </header>
 
-        {/* Diagnostic Card - AI Analysis */}
-        {result.diagnosis && (
-          <div className="space-y-6 mb-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <DiagnosticCard diagnosis={result.diagnosis} />
-            </motion.div>
-
-            {result.diagnosis.dietary_advice && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <DietaryCard advice={result.diagnosis.dietary_advice} />
-              </motion.div>
-            )}
-          </div>
-        )}
-
-        {/* Main Triage Card */}
+        {/* Main Triage Card - URGENCY LEVEL (FIRST) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -375,6 +352,30 @@ export default function TriageResultPage() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* Diagnostic Card - AI Analysis (SECOND) */}
+        {result.diagnosis && (
+          <div className="space-y-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <DiagnosticCard diagnosis={result.diagnosis} />
+            </motion.div>
+
+            {/* Patient Care Plan - Dietary Card (THIRD) */}
+            {result.diagnosis.dietary_advice && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <DietaryCard advice={result.diagnosis.dietary_advice} />
+              </motion.div>
+            )}
+          </div>
+        )}
 
         {/* Additional Information Cards */}
         <div className="grid md:grid-cols-2 gap-6">

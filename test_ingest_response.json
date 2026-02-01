@@ -1,0 +1,67 @@
+﻿{
+    "patient_input_summary":  "Patient experiences severe burning in chest and stomach with acidity after eating spicy food",
+    "extracted_timestamp":  "2024-02-20T14:30:00Z",
+    "patient_demographics":  {
+                                 "age_value":  null,
+                                 "age_unit":  null
+                             },
+    "body_systems":  {
+                         "general":  [
+
+                                     ],
+                         "respiratory":  [
+
+                                         ],
+                         "cardiovascular":  [
+
+                                            ],
+                         "gastrointestinal":  [
+                                                  {
+                                                      "name":  "abdominal_pain",
+                                                      "value":  null,
+                                                      "location":  "stomach",
+                                                      "severity_scale":  8,
+                                                      "duration_value":  null,
+                                                      "duration_unit":  null,
+                                                      "body_system":  "gastrointestinal",
+                                                      "certainty":  "certain",
+                                                      "negated":  false,
+                                                      "onset_timestamp":  null,
+                                                      "resolution_timestamp":  null,
+                                                      "notes":  "associated with eating spicy food"
+                                                  },
+                                                  {
+                                                      "name":  "acidity",
+                                                      "value":  null,
+                                                      "location":  "stomach",
+                                                      "severity_scale":  7,
+                                                      "duration_value":  null,
+                                                      "duration_unit":  null,
+                                                      "body_system":  "gastrointestinal",
+                                                      "certainty":  "certain",
+                                                      "negated":  false,
+                                                      "onset_timestamp":  null,
+                                                      "resolution_timestamp":  null,
+                                                      "notes":  "after eating spicy food"
+                                                  }
+                                              ],
+                         "neurological":  [
+
+                                          ],
+                         "genitourinary":  [
+
+                                           ],
+                         "musculoskeletal":  [
+
+                                             ],
+                         "mental_health":  [
+
+                                           ]
+                     },
+    "flags":  {
+                  "uncertainty_detected":  false,
+                  "missing_critical_info":  [
+
+                                            ]
+              }
+}

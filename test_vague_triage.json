@@ -1,0 +1,23 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Insufficient Clinical Data",
+                      "confidence_score":  0,
+                      "differentials":  [
+
+                                        ],
+                      "reasoning_summary":  "The reported symptoms are too vague to form a reliable differential diagnosis. Please gather more history (duration, severity, location).",
+                      "recommended_action":  "Conduct detailed patient interview.",
+                      "dietary_advice":  {
+                                             "recommended_foods":  [
+
+                                                                   ],
+                                             "foods_to_avoid":  [
+
+                                                                ],
+                                             "daily_habit":  "We do not have enough symptoms to provide specific dietary advice."
+                                         }
+                  }
+}

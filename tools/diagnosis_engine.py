@@ -20,6 +20,8 @@ Your goal is to provide a highly accurate "Differential Diagnosis" based on the 
 4.  **Reasoning**: Explain WHY you chose these. specific symptom matches.
 5.  **Critical Check**: If the symptoms strongly match a life-threatening emergency (Heart Attack, Stroke, Sepsis, Meningitis), flag the Primary Diagnosis as "CRITICAL" in the reasoning.
 6.  **Uncertainty**: If symptoms are vague (e.g., just "weakness"), give lower confidence scores and suggest broad categories.
+7.  **MINIMUM CONFIDENCE RULE (CRITICAL)**: If there are **3 or more symptoms**, you MUST assign at least **40% confidence** to the primary diagnosis, even if details like severity are missing. Use symptom patterns to make an educated guess.
+8.  **MISSING SEVERITY**: If severity_scale is 0 or missing, assume **moderate severity (5)** for the symptom.
 
 ### OUTPUT JSON FORMAT:
 {
@@ -108,8 +110,8 @@ def run_differential_diagnosis(symptoms_list, demographics=None):
         result = json.loads(response_content)
         
         # Enforce Sufficiency Threshold (Safety Layer)
-        # If AI is less than 40% confident, we suppress the diagnosis
-        if result.get("confidence_score", 0) < 40 and not result.get("primary_diagnosis", "").startswith("CRITICAL"):
+        # If AI is less than 25% confident, we suppress the diagnosis
+        if result.get("confidence_score", 0) < 25 and not result.get("primary_diagnosis", "").startswith("CRITICAL"):
              result["primary_diagnosis"] = "Insufficient Clinical Data"
              result["reasoning_summary"] = "The reported symptoms are too vague to form a reliable differential diagnosis. Please gather more history (duration, severity, location)."
              result["recommended_action"] = "Conduct detailed patient interview."

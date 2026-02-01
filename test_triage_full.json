@@ -1,0 +1,36 @@
+﻿{
+    "priority":  "GREEN",
+    "action":  "ROUTINE: Schedule standard intake.",
+    "rationale":  "No critical red flags detected.",
+    "diagnosis":  {
+                      "primary_diagnosis":  "Gastroesophageal Reflux Disease (GERD)",
+                      "confidence_score":  60,
+                      "differentials":  [
+                                            {
+                                                "condition":  "Peptic Ulcer Disease",
+                                                "probability":  30,
+                                                "reasoning":  "Abdominal pain and acidity could be due to ulceration in the stomach or duodenum"
+                                            },
+                                            {
+                                                "condition":  "Irritable Bowel Syndrome (IBS)",
+                                                "probability":  10,
+                                                "reasoning":  "Abdominal pain could be related to IBS, but acidity is less common in IBS"
+                                            }
+                                        ],
+                      "reasoning_summary":  "Patient presents with symptoms of abdominal pain and acidity, which could be related to GERD or peptic ulcer disease",
+                      "recommended_action":  "Refer to Gastroenterologist / Start antacids",
+                      "dietary_advice":  {
+                                             "recommended_foods":  [
+                                                                       "Warm Khichdi",
+                                                                       "Curd (Dahi)",
+                                                                       "Boiled Water"
+                                                                   ],
+                                             "foods_to_avoid":  [
+                                                                    "Spicy Pickles",
+                                                                    "Fried Pakoras",
+                                                                    "Citrus Fruits"
+                                                                ],
+                                             "daily_habit":  "Drink warm water every morning and eat small, frequent meals"
+                                         }
+                  }
+}
