@@ -12,6 +12,7 @@ import {
     Menu,
     X,
     Heart,
+    FileUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -25,6 +26,7 @@ export function Navbar() {
         { name: "Health Check", href: "/intake", icon: Heart },
         { name: "Review Queue", href: "/nurse/review", icon: ClipboardList },
         { name: "Find Doctors", href: "/network", icon: Users },
+        { name: "Medical Records", href: "/records", icon: FileUp },
         { name: "Dashboard", href: "/admin", icon: BarChart3 },
     ];
 
