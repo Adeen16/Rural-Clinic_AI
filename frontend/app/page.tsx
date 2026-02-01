@@ -244,6 +244,25 @@ export default function Home() {
             </Card>
           </Link>
 
+          {/* NGO Support */}
+          <Link href="/ngo">
+            <Card className="h-full border-triage-amber/20 bg-triage-amber/5 hover:bg-triage-amber/10 transition-colors group cursor-pointer">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <HandHeart className="w-6 h-6 text-triage-amber" />
+                  NGO Support
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-text-secondary text-sm">
+                  Find NGOs that provide financial assistance for your treatment.
+                </p>
+                <span className="inline-flex items-center text-triage-amber font-medium text-sm group-hover:underline">
+                  Get Support <ArrowRight className="w-4 h-4 ml-1" />
+                </span>
+              </CardContent>
+            </Card>
+          </Link>
 
         </div>
       </section>
