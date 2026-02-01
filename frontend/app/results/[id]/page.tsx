@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -18,6 +18,7 @@ import {
   Phone,
   MapPin,
   Info,
+  HandHeart,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -28,6 +29,7 @@ import { cn } from "@/lib/utils";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { DiagnosticCard } from "@/components/clinical/DiagnosticCard";
 import { DietaryCard } from "@/components/clinical/DietaryCard";
+
 
 /**
  * 5-level priority configuration
@@ -135,6 +137,8 @@ export default function HealthCheckResultPage() {
       setIsLoading(false);
     }, 500);
   }, [params.id]);
+
+
 
   if (isLoading) {
     return (
@@ -437,6 +441,8 @@ export default function HealthCheckResultPage() {
           )}
         </div>
 
+
+
         {/* Trust Footer */}
         <div className="mt-8 text-center space-y-2">
           <div className="inline-flex items-center gap-2 text-xs text-text-muted">
@@ -449,6 +455,8 @@ export default function HealthCheckResultPage() {
           </p>
         </div>
       </div>
+
+
     </DashboardLayout>
   );
 }

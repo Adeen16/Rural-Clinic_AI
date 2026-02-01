@@ -8,10 +8,14 @@ import {
   Zap,
   Heart,
   MessageCircle,
+  HandHeart,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { Navbar } from "@/components/layout/Navbar";
+
+
 
 /**
  * Landing Page
@@ -27,77 +31,61 @@ export default function Home() {
         {/* Background gradient - soft and welcoming */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-triage-green/5 pointer-events-none" />
 
-        {/* Header - Full width */}
-        <header className="relative z-10 w-full px-6 md:px-12 lg:px-20 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="RuralClinic Logo"
-                width={44}
-                height={44}
-                className="rounded-xl object-contain"
-                priority
-              />
-              <span className="font-bold text-xl text-primary">RuralClinic</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Link href="/sign-in">
-                <Button variant="ghost">Sign In</Button>
-              </Link>
-            </div>
-          </div>
-        </header>
+        {/* Unified Navbar */}
+        <Navbar />
+
+        {/* Header Spacer for correct hero alignment */}
+        <div className="pt-16" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 pb-16 flex flex-col flex-1">
 
           {/* Hero Content - Centered in remaining space */}
           <div className="flex-1 flex items-center justify-center">
             <div className="max-w-3xl mx-auto text-center space-y-6 animate-fade-up">
-            <Badge variant="secondary" className="mb-4">
-              <Shield className="w-3 h-3 mr-1" />
-              Nurse-Reviewed Health Checks
-            </Badge>
+              <Badge variant="secondary" className="mb-4">
+                <Shield className="w-3 h-3 mr-1" />
+                Nurse-Reviewed Health Checks
+              </Badge>
 
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              <span className="text-text-primary">
-                Your Health,
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-primary to-triage-green bg-clip-text text-transparent">
-                Made Simple
-              </span>
-            </h1>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+                <span className="text-text-primary">
+                  Your Health,
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-primary to-triage-green bg-clip-text text-transparent">
+                  Made Simple
+                </span>
+              </h1>
 
-            <p className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-              Tell us how you're feeling in your own words. We'll guide you 
-              on what to do next and connect you with the right care.
-            </p>
+              <p className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+                Tell us how you're feeling in your own words. We'll guide you
+                on what to do next and connect you with the right care.
+              </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link href="/intake">
-                <Button size="lg" className="min-w-[200px]">
-                  Start Consultation
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
-
-          {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-sm text-text-muted">
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-primary" />
-                <span>Private & Secure</span>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <Link href="/intake">
+                  <Button size="lg" className="min-w-[200px]">
+                    Start Consultation
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
               </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-primary" />
-                <span>Quick Results</span>
+
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-sm text-text-muted">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-primary" />
+                  <span>Private & Secure</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span>Quick Results</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-primary" />
+                  <span>Caring Support</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Heart className="w-4 h-4 text-primary" />
-                <span>Caring Support</span>
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -153,7 +141,7 @@ export default function Home() {
               <CardTitle>Clear Next Steps</CardTitle>
             </CardHeader>
             <CardContent className="text-text-secondary">
-              Get simple advice on what to do next - whether 
+              Get simple advice on what to do next - whether
               it's home care tips or when to see a doctor.
             </CardContent>
           </Card>
@@ -215,22 +203,21 @@ export default function Home() {
       {/* Quick Access Cards */}
       <section className="max-w-6xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-bold text-text-primary mb-6">Get Started</h2>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {/* Start Health Check */}
           <Link href="/intake">
             <Card className="h-full border-primary/20 bg-primary/5 hover:bg-primary/10 transition-colors group cursor-pointer">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <Heart className="w-7 h-7 text-primary" />
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <Heart className="w-6 h-6 text-primary" />
                   Start Health Check
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-text-secondary">
-                  Start a health check. Tell us how you're feeling
-                  and we'll help you figure out what to do next.
+                <p className="text-text-secondary text-sm">
+                  Tell us how you're feeling and we'll help you figure out what to do next.
                 </p>
-                <span className="inline-flex items-center text-primary font-medium group-hover:underline">
+                <span className="inline-flex items-center text-primary font-medium text-sm group-hover:underline">
                   Start Now <ArrowRight className="w-4 h-4 ml-1" />
                 </span>
               </CardContent>
@@ -241,22 +228,23 @@ export default function Home() {
           <Link href="/network">
             <Card className="h-full border-triage-green/20 bg-triage-green/5 hover:bg-triage-green/10 transition-colors group cursor-pointer">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <Users className="w-7 h-7 text-triage-green" />
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <Users className="w-6 h-6 text-triage-green" />
                   Find a Doctor
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-text-secondary">
-                  Need a specialist? Browse doctors in your area
-                  who can help with your health needs.
+                <p className="text-text-secondary text-sm">
+                  Browse doctors in your area who can help with your health needs.
                 </p>
-                <span className="inline-flex items-center text-triage-green font-medium group-hover:underline">
+                <span className="inline-flex items-center text-triage-green font-medium text-sm group-hover:underline">
                   Find Doctors <ArrowRight className="w-4 h-4 ml-1" />
                 </span>
               </CardContent>
             </Card>
           </Link>
+
+
         </div>
       </section>
 

@@ -1,7 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // Define public routes that don't require authentication
-// For development and demo purposes, most routes are public
 const isPublicRoute = createRouteMatcher([
   "/",
   "/sign-in(.*)",
@@ -9,11 +8,10 @@ const isPublicRoute = createRouteMatcher([
   "/intake(.*)",
   "/results(.*)",
   "/network(.*)",
-  // Protected routes (require auth): /nurse/.*, /admin/.*
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
-  // Only protect nurse and admin routes
+  // Only require authentication for non-public routes (nurse/*, admin/*)
   if (!isPublicRoute(request)) {
     await auth.protect();
   }

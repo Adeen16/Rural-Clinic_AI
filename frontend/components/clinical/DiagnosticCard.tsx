@@ -21,22 +21,22 @@ export function DiagnosticCard({ diagnosis }: DiagnosticCardProps) {
     const isCritical = diagnosis.is_critical || diagnosis.primary_diagnosis.toLowerCase().includes("critical");
     const isInsufficient = diagnosis.primary_diagnosis.includes("Insufficient");
 
-    let borderColor = "border-l-primary";
+    let borderColor = "";
     let bgColor = "";
     let titleColor = "text-text-primary";
 
     if (isCritical) {
-        borderColor = "border-l-red-500";
+        borderColor = "";
         bgColor = "bg-red-50";
         titleColor = "text-red-700";
     } else if (isInsufficient) {
-        borderColor = "border-l-amber-500";
+        borderColor = "";
         bgColor = "bg-amber-50";
         titleColor = "text-amber-700";
     }
 
     return (
-        <Card className={cn("p-6 space-y-4 border-l-4", borderColor, bgColor)}>
+        <Card className={cn("p-6 space-y-4", borderColor, bgColor)}>
             <div className="flex items-start justify-between">
                 <div>
                     <h3 className="text-sm font-medium text-text-secondary uppercase tracking-wider mb-1">
