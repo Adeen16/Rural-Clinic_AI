@@ -121,7 +121,7 @@ export default function ReviewQueuePage() {
         </div>
 
         {/* Queue List */}
-        <div className="space-y-8">
+        <div className="flex flex-col gap-4">
           {filteredQueue.length === 0 ? (
             <Card className="p-12 text-center">
               <ClipboardList className="w-12 h-12 text-text-muted mx-auto mb-4" />

@@ -147,6 +147,9 @@ export default function MedicalRecordsPage() {
                             <p className="text-sm text-text-secondary mt-1">
                                 Your medical records have been received. A clinician will review them and contact you if needed.
                             </p>
+                            <p className="text-red-500 text-sm mt-1">
+                                Currently in Beta version, Soon it will be able to generate AI diagnosis and recommendations based on the uploaded medical records.
+                            </p>
                         </div>
                         <Button
                             variant="ghost"
