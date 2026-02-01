@@ -27,6 +27,8 @@ import { Alert } from "@/components/ui/Alert";
 import { TriageSkeleton } from "@/components/ui/Skeleton";
 import { cn } from "@/lib/utils";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import { DiagnosticCard } from "@/components/clinical/DiagnosticCard";
+import { DietaryCard } from "@/components/clinical/DietaryCard";
 
 /**
  * ESI-based 5-level triage configuration
@@ -102,6 +104,7 @@ interface TriageResultData {
   triageLevel: TriageLevel;
   verifiedSymptoms: Array<{ normalized: string; category: string }>;
   rulesTriggered: string[];
+  diagnosis?: any; // Added diagnosis field
   timestamp: string;
 }
 
@@ -120,72 +123,20 @@ export default function TriageResultPage() {
   useEffect(() => {
     const consultId = params.id as string;
 
-    // Simulate fetching triage result
+    // Simulate fetching triage result (or reading from storage)
     setTimeout(() => {
       // Check sessionStorage for triage data
       const triageStored = sessionStorage.getItem(`triage-${consultId}`);
-      const consultStored = sessionStorage.getItem(consultId);
 
       if (triageStored) {
         const triageData = JSON.parse(triageStored);
-        // Determine triage level based on symptoms
-        const symptoms = triageData.verifiedSymptoms || [];
-        const hasCardiac = symptoms.some(
-          (s: any) =>
-            s.category?.toLowerCase().includes("cardio") ||
-            s.normalized?.toLowerCase().includes("chest")
-        );
-        const hasNeuro = symptoms.some(
-          (s: any) =>
-            s.category?.toLowerCase().includes("neuro") ||
-            s.normalized?.toLowerCase().includes("headache")
-        );
-        const hasFracture = symptoms.some(
-          (s: any) =>
-            s.normalized?.toLowerCase().includes("fracture") ||
-            s.normalized?.toLowerCase().includes("trauma") ||
-            s.normalized?.toLowerCase().includes("bone")
-        );
-
-        // Mock triage level determination
-        let level: TriageLevel = 5;
-        if (hasCardiac || hasFracture) level = 2;
-        else if (hasNeuro && symptoms.length > 2) level = 3;
-        else if (symptoms.length > 1) level = 4;
-
-        setResult({
-          consultId,
-          triageLevel: level,
-          verifiedSymptoms: symptoms,
-          rulesTriggered: hasCardiac
-            ? ["CARDIAC_SYMPTOM_PRESENT", "IMMEDIATE_ATTENTION"]
-            : hasFracture
-              ? ["POSSIBLE_FRACTURE", "IMMOBILIZE_PATIENT"]
-              : hasNeuro
-                ? ["NEUROLOGICAL_CLUSTER", "MONITORING_REQUIRED"]
-                : ["STANDARD_ASSESSMENT"],
-          timestamp: new Date().toISOString(),
-        });
+        setResult(triageData); // TRUST THE BACKEND RESULT stored in session
       } else {
-        // Default mock result
-        setResult({
-          consultId,
-          triageLevel: 3,
-          verifiedSymptoms: [
-            { normalized: "Persistent headache", category: "Neurological" },
-            { normalized: "Intermittent dizziness", category: "Neurological" },
-            { normalized: "Low-grade fever", category: "Systemic" },
-          ],
-          rulesTriggered: [
-            "NEUROLOGICAL_CLUSTER",
-            "FEVER_PRESENT",
-            "MULTI_SYSTEM_INVOLVEMENT",
-          ],
-          timestamp: new Date().toISOString(),
-        });
+        // Fallback for direct access without data
+        setResult(null);
       }
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   }, [params.id]);
 
   if (isLoading) {
@@ -300,6 +251,29 @@ export default function TriageResultPage() {
             </p>
           </div>
         </header>
+
+        {/* Diagnostic Card - AI Analysis */}
+        {result.diagnosis && (
+          <div className="space-y-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <DiagnosticCard diagnosis={result.diagnosis} />
+            </motion.div>
+
+            {result.diagnosis.dietary_advice && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <DietaryCard advice={result.diagnosis.dietary_advice} />
+              </motion.div>
+            )}
+          </div>
+        )}
 
         {/* Main Triage Card */}
         <motion.div

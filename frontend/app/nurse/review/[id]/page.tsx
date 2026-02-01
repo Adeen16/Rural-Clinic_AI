@@ -171,19 +171,59 @@ export default function SymptomReviewPage() {
   const handleSubmitForTriage = async () => {
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Group verified symptoms by category for the backend
+      const verifiedSymptoms = symptoms.filter((s) => s.verified);
+      const bodySystemsMap: Record<string, any[]> = {};
 
-    // Store verified symptoms
-    const triageData = {
-      consultId: data?.consultId,
-      verifiedSymptoms: symptoms.filter((s) => s.verified),
-      allSymptoms: symptoms,
-      reviewedAt: new Date().toISOString(),
-    };
-    sessionStorage.setItem(`triage-${data?.consultId}`, JSON.stringify(triageData));
+      verifiedSymptoms.forEach(sym => {
+        const cat = sym.category.toLowerCase().replace(" ", "_"); // simple normalization
+        if (!bodySystemsMap[cat]) bodySystemsMap[cat] = [];
+        bodySystemsMap[cat].push({
+          name: sym.normalized,
+          severity_scale: 0, // Default as verify UI doesn't capture severity yet
+          body_system: cat
+        });
+      });
 
-    router.push(`/results/${data?.consultId}`);
+      // Construct payload
+      const payload = {
+        payload: {
+          patient_input_summary: data?.rawText || "",
+          patient_demographics: { age: "Unknown", sex: "Unknown" }, // TODO: Pass real demographics
+          body_systems: bodySystemsMap
+        }
+      };
+
+      // Real Backend Call
+      const response = await fetch("http://127.0.0.1:8000/triage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error("Triage failed");
+
+      const triageResult = await response.json();
+
+      // Store result for the results page
+      const storedResult = {
+        consultId: data?.consultId,
+        verifiedSymptoms: verifiedSymptoms,
+        triageLevel: triageResult.triage_level?.level || 3, // Fallback
+        rulesTriggered: triageResult.rules_triggered || [],
+        diagnosis: triageResult.diagnosis, // Store the AI diagnosis
+        timestamp: new Date().toISOString(),
+      };
+
+      sessionStorage.setItem(`triage-${data?.consultId}`, JSON.stringify(storedResult));
+      router.push(`/results/${data?.consultId}`);
+
+    } catch (err) {
+      console.error("Triage Error", err);
+      setIsSubmitting(false);
+      // Optional: Show error toast
+    }
   };
 
   // Calculate stats
@@ -275,8 +315,8 @@ export default function SymptomReviewPage() {
                         ? "bg-triage-green/5 border-triage-green/30"
                         : "bg-surface border-border",
                       symptom.confidence < 0.85 &&
-                        !symptom.verified &&
-                        "border-triage-amber/50"
+                      !symptom.verified &&
+                      "border-triage-amber/50"
                     )}
                   >
                     <div className="flex items-start gap-3">

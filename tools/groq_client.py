@@ -50,10 +50,18 @@ Your ONLY job is to extract symptoms from the patient's text and map them to the
 - Map to "active_bleeding", "laceration", or "hemorrhage".
 - Check for severity qualifiers like "heavy", "uncontrollable", "spurting" (set severity_scale to 9-10).
 
+### LOCATION & CONTEXT GUIDELINES (CRITICAL):
+- **ALWAYS** extract the specific body part or location if mentioned.
+- **Example**: "Head pain" -> Name: "Headache", Location: "Head", Body System: "Neurological"
+- **Example**: "Leg pain" -> Name: "Limb Pain", Location: "Leg", Body System: "Musculoskeletal"
+- **Example**: "Chest pain" -> Name: "Chest Pain", Location: "Chest", Body System: "Cardiovascular"
+- Do NOT normalize context-specific pains into generic "Pain" unless the location is unknown.
+
 ### SYMPTOM OBJECT STRUCTURE:
 {
   "name": "symptom_name_snake_case (MUST be key 'name', NOT 'symptom')",
   "value": "raw_value_or_null",
+  "location": "specific_body_part_or_null",
   "severity_scale": 0,
   "duration_value": null,
   "duration_unit": null,
